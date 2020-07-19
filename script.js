@@ -5,34 +5,37 @@ const slides = document.getElementsByTagName("section");
 const posts = document.getElementsByTagName("article")
 
 function updateView() {
-  const y = -110 * (active.y > 0 ? active.y + (5 - 2.25) : 0);
+  const r = 5;
+  const h_delta = 10;
+  const v_detla = 100 + (r * h_delta);
+  const y = -v_detla * (active.y > 0 ? active.y + (r / 2) : 0);
   for (let i = 0; i < slides.length; i++) {
     slides[i].style.opacity = "25%";
     switch (i - active.x) {
       case -2:
-        slides[i].style.transform = "translate(-220%, " + String(y / 5) + "%)";
+        slides[i].style.transform = "translate(" + String(-2 * (h_delta + 100)) + "%, " + String(y / r) + "%)";
         break;
       case -1:
-        slides[i].style.transform = "translate(-110%, " + String(y / 5) + "%)";
+        slides[i].style.transform = "translate(" + String(-1 * (h_delta + 100)) + "%, " + String(y / r) + "%)";
         break;
       case 0:
-        slides[i].style.transform = "translate(0, " + String(y / 5) + "%)";
+        slides[i].style.transform = "translate(0, " + String(y / r) + "%)";
         if (active.y == 0) {
           slides[i].style.opacity = "100%";
         }
         break;
       case 1:
-        slides[i].style.transform = "translate(110%, " + String(y / 5) + "%)";
+        slides[i].style.transform = "translate(" + String(1 * (h_delta + 100)) + "%, " + String(y / r) + "%)";
         break;
       case 2:
-        slides[i].style.transform = "translate(220%, " + String(y / 5) + "%)";
+        slides[i].style.transform = "translate(" + String(2 * (h_delta + 100)) + "%, " + String(y / r) + "%)";
         break;
     }
   }
 
   for (let j = 0; j < posts.length; j++) {
-    let offset = 110 * j
-    posts[j].style.transform = "translate(" + String(110 * (1 - active.x)) + "%," + String(y + offset) + "%)";
+    let offset = v_detla * j
+    posts[j].style.transform = "translate(" + String((1 - active.x) * (h_delta + 100)) + "%," + String(y + offset) + "%)";
     posts[j].style.opacity = "25%";
     if (j == active.y - 1) {
       posts[j].style.opacity = "1";
