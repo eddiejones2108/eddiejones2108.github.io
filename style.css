@@ -1,0 +1,131 @@
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18pt;
+  background: #fafafa;
+  color: #383a42;
+}
+
+header {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  z-index: 2;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: #fafafa;
+}
+
+h1 {
+  margin: 0;
+  padding: 0.75em;
+  font-size: 200%;
+  background: #383a42;
+}
+
+h1:hover {
+  color: #e45649;
+  cursor: pointer;
+}
+
+h2 {
+  margin: 0;
+  padding: 0.75em;
+  font-size: 125%;
+  background: #e45649;
+}
+
+h2:hover {
+  color: #383a42;
+  cursor: pointer;
+}
+
+.help {
+  position: absolute;
+  right: 3em;
+  font-size: 300%;
+  opacity: 25%;
+}
+
+.help:hover {
+  opacity: 100%;
+  cursor: help;
+}
+
+.help:hover:before {
+  position: absolute;
+  float: right;
+  top: 3em;
+  right: 2.5em;
+  width: 10em;
+  content: "Use the arrow keys to navigate. Sorry mobile users but design decisions had to be made.";
+  font-size: 20%;
+  letter-spacing: 0.75pt;
+  font-weight: lighter;
+  color: #0184bc;
+}
+
+a,
+em,
+.arrow-link {
+  color: #0184bc;
+  text-decoration: none;
+}
+
+.arrow-link {
+  font-weight: bold;
+  font-size: 500%;
+  vertical-align: middle;
+}
+
+a:hover,
+.arrow-link:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.squish th, .squish tr {
+  font-size: smaller;
+}
+
+th,
+tr {
+  padding-left: 10px;
+  padding-top: 5px;
+  font-weight: normal;
+  text-align: left;
+}
+
+h3 {
+  font-size: 200%;
+}
+
+.slide {
+  position: absolute;
+  left: calc(50% - 400px - 4.33em);
+  width: 800px;
+  display: table-cell;
+  padding: 20px;
+  margin: 0px;
+  border: 1px solid #383a42;
+  border-radius: 5px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  box-sizing: border-box;
+}
+
+section {
+  height: 500px;
+  top: calc(50% - 250px);
+}
+
+article {
+  height: 100px;
+  top: calc(50% - 250px + 500px + 50px);
+}

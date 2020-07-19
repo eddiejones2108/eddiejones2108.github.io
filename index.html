@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assorted Musings</title>
+  <link rel='stylesheet' type='text/css' href='style.css'>
+  <link rel="icon" href="http://example.com/favicon.png">
+  <script src="script.ts"></script>
+</head>
+
+<body onload="updateView()">
+  <header>
+    <h2 onclick="active = { x: 2, y: 0 }; updateView()">Eddie Jones'</h2>
+    <h1 onclick="active = { x: 1, y: 0 }; updateView()">Assorted Musings</h1>
+  </header>
+
+  <div class="help" onclick="showHelp()">?</div>
+
+  <section class="slide">
+    <h3>Curriculum Vitae: The Highlights</h3>
+    <table class="squish">
+      <tr>
+        <th>PhD</th>
+        <th>2019 &mdash;</th>
+        <th>Computer Science</th>
+      </tr>
+      <tr>
+        <th>Teaching Assistant</th>
+        <th>2018 &mdash;</th>
+      </tr>
+      <tr>
+        <th>BSc (1<sup>st</sup>)</th>
+        <th>2016 &mdash; 2019</th>
+        <th>Maths and Computer Science</th>
+      </tr>
+      <tr>
+        <th>Dissetation (1<sup>st</sup>) </th>
+        <th>2019</th>
+        <th><a href="diss.pdf">The Dynamics of Dialects</a></th>
+      </tr>
+      <tr>
+        <th>Top 5 Computer Science Students</th>
+        <th>2017, 2018, 2019</th>
+      </tr>
+      <tr>
+        <th>A Level (A*, A, A, A)</th>
+        <th>2014 &mdash; 2016</th>
+        <th>Maths, Further Maths, Physics, Economics</th>
+      </tr>
+
+    </table>
+    <div style="float: right;">
+      <p>For the full story
+        <span onclick="active = { x: 2, y: 0 }; updateView()" class="arrow-link">&Rarr;</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <h3>Welcome!</h3>
+    <p>I'm a PhD student at the University of Bristol, focusing on <em>programming languages</em> and
+      <em>verification</em>.
+      Despite its etymology, I strongly believe that <em>abstraction</em> can be fruitfully applied to many <em>concrete
+        problems</em> &mdash; it's just a matter of perspective.
+    </p>
+    <br>
+    <p>
+    My interests, however, are pretty varied as you'll find out below&hellip;
+    </p>
+  </section>
+
+  <section class="slide">
+    <h3>Contact Me</h3>
+    <p>Ideas, like good wine, are best aired. Don't hesitate to get in touch!</p>
+
+    <table>
+      <tr>
+        <th>Email</th>
+        <th><a href="mailto: ej16147@bristol.ac.uk">ej16147@bristol.ac.uk</a></th>
+      </tr>
+      <tr>
+        <th>GitHub</th>
+        <th><a href="https://github.com/eddiejones2108">eddiejones2108</a></th>
+      </tr>
+      <tr>
+        <th>Linkedin</th>
+        <th><a href="https://www.linkedin.com/in/edward-jones-b59a80151/">edward-jones</a></th>
+      </tr>
+    </table>
+  </section>
+
+  <article class="slide">Eager<em>er</em> Evaluation</article>
+  <article class="slide">On Meta-Evolution</article>
+  <article class="slide">On Meta-Evolution</article>
+  <article class="slide">On Meta-Evolution</article>
+  <article class="slide">On Meta-Evolution</article>
+  <article class="slide">On Meta-Evolution</article>
+  <article class="slide">On Meta-Evolution</article>
+</body>
+
+</html>
