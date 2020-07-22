@@ -1,26 +1,22 @@
 <!DOCTYPE html>
+<html lang="en-UK">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta name="author" content="Eddie Jones">
+  <meta name="description" content="Some random thoughts on computer science and philosophy">
+  <meta name=" viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Assorted Musings</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <link rel='stylesheet' type='text/css' href='style.css'>
-  <script>
-    function updateView(event) {
-      for (let sec of document.getElementsByTagName("section")) {
-        let rec = sec.getBoundingClientRect();
-        let off = Math.min(rec.top, 0) + Math.min(window.innerHeight - rec.bottom, 0);
-        console.log(off, rec.height);
-        sec.style.opacity = 1 + (off / rec.height);
-      }
-    }
 
-    document.addEventListener('scroll', updateView, true);
+  <script type='text/javascript', src='script.js'></script>
   </script>
+  <title>Assorted Musings</title>
 </head>
 
-<body onload="updateView()">
+<body onload="updateView()" onresize="updateView()" onscroll="updateView()">
   <header>
     <h2>Eddie Jones
       <a href="mailto: ej16147@bristol.ac.uk" class="fa fa-envelope"></a>
@@ -28,10 +24,10 @@
       <a href="https://www.linkedin.com/in/edward-jones-b59a80151/" class="fa fa-linkedin"></a>
     </h2>
 
-    <h1>Assorted Musings</h1>
+    <h1><a href="index.html#">Assorted Musings</a></h1>
   </header>
 
-  <div class="main">
+  <main>
     <section>
       <h3>Welcome!</h3>
       <p>I'm a PhD student at the University of Bristol, focusing on <em>programming languages</em> and
@@ -40,12 +36,19 @@
         <em>concrete
           problems</em> &mdash; it's just a matter of perspective.
       </p>
-      <br>
-      <p>
-        My interests, however, are pretty varied as you'll find out below&hellip;
-      </p>
     </section>
-  </div>
+    
+    <!-- <section>
+      <a href="meta-evolution.html">On Meta-Evolution</a>
+      <span class="date">22/07/20</span>
+    </section> -->
+    
+    <!-- <section>
+      <a href="speculation.html">Generic Speculation</a>
+      <span class="date">22/07/20</span>
+    </section> -->
+
+  </main>
 </body>
 
 </html>
