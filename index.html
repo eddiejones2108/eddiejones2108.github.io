@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <title>Assorted Musings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel='stylesheet' type='text/css' href='style.css'>
-  <link rel="icon" href="http://example.com/favicon.png">
-  <script src="script.js" type="text/javascript"></script>
+  <script>
+    function updateView(event) {
+      for (let sec of document.getElementsByTagName("section")) {
+        let rec = sec.getBoundingClientRect();
+        let off = Math.min(rec.top, 0) + Math.min(window.innerHeight - rec.bottom, 0);
+        console.log(off, rec.height);
+        sec.style.opacity = 1 + (off / rec.height);
+      }
+    }
+
+    document.addEventListener('scroll', updateView, true);
+  </script>
 </head>
 
 <body onload="updateView()">
-  <div style="overflow: hidden;">
-    <header>
-      <h2 onclick="gotoView(2, 0)">Eddie Jones'</h2>
-      <h1 onclick="gotoView(1, 0)">Assorted Musings</h1>
-    </header>
+  <header>
+    <h2>Eddie Jones
+      <a href="mailto: ej16147@bristol.ac.uk" class="fa fa-envelope"></a>
+      <a href="https://github.com/eddiejones2108" class="fa fa-github"></a>
+      <a href="https://www.linkedin.com/in/edward-jones-b59a80151/" class="fa fa-linkedin"></a>
+    </h2>
 
-    <section onclick="gotoView(0, 0)" , class="slide">
-      <h3>Curriculum Vitae: The Highlights</h3>
-      <table class="squish">
-        <tr>
-          <th>PhD</th>
-          <th>2019 &mdash;</th>
-          <th>Computer Science</th>
-        </tr>
-        <tr>
-          <th>Teaching Assistant</th>
-          <th>2018 &mdash;</th>
-        </tr>
-        <tr>
-          <th>BSc (1<sup>st</sup>)</th>
-          <th>2016 &mdash; 2019</th>
-          <th>Maths and Computer Science</th>
-        </tr>
-        <tr>
-          <th>Dissertation (1<sup>st</sup>) </th>
-          <th>2019</th>
-          <th><a href="diss.pdf">The Dynamics of Dialects</a></th>
-        </tr>
-        <tr>
-          <th>Top 5 Computer Science Students</th>
-          <th>2017, 2018, 2019</th>
-        </tr>
-        <tr>
-          <th>A Level (A*, A, A, A)</th>
-          <th>2014 &mdash; 2016</th>
-          <th>Maths, Further Maths, Physics, Economics</th>
-        </tr>
+    <h1>Assorted Musings</h1>
+  </header>
 
-      </table>
-      <div style="float: right;">
-        <p>For the full story
-          <span onclick="active = { x: 2, y: 0 }; updateView(); event.stopPropagation();" class="arrow-link">&Rarr;</span>
-        </p>
-      </div>
-    </section>
-
-    <section onclick="gotoView(1, 0)" , class="slide">
+  <div class="main">
+    <section>
       <h3>Welcome!</h3>
       <p>I'm a PhD student at the University of Bristol, focusing on <em>programming languages</em> and
         <em>verification</em>.
@@ -67,28 +45,6 @@
         My interests, however, are pretty varied as you'll find out below&hellip;
       </p>
     </section>
-
-    <section onclick="gotoView(2, 0)", class="slide">
-      <h3>Contact Me</h3>
-      <p>Ideas, like good wine, are best aired. Don't hesitate to get in touch!</p>
-
-      <table>
-        <tr>
-          <th>Email</th>
-          <th><a href="mailto: ej16147@bristol.ac.uk">ej16147@bristol.ac.uk</a></th>
-        </tr>
-        <tr>
-          <th>GitHub</th>
-          <th><a href="https://github.com/eddiejones2108">eddiejones2108</a></th>
-        </tr>
-        <tr>
-          <th>Linkedin</th>
-          <th><a href="https://www.linkedin.com/in/edward-jones-b59a80151/">edward-jones</a></th>
-        </tr>
-      </table>
-    </section>
-
-    <article onclick="gotoView(1, 1)" , class="slide" , href="eagerer.html">Eager<em>er</em> Evaluation</article>
   </div>
 </body>
 
