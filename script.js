@@ -4,6 +4,11 @@ let active = { x: 1, y: 0 }
 const slides = document.getElementsByTagName("section");
 const posts = document.getElementsByTagName("article")
 
+function gotoView(x, y) {
+  active = {x : x, y: y};
+  updateView();
+}
+
 function updateView() {
   const r = 5;
   const h_delta = 10;
@@ -45,15 +50,14 @@ function updateView() {
 
 document.addEventListener("keydown", function (event) {
   if (event.keyCode == 13 && active.y >= 1) {
-    // posts[active.y].style.transition("transform 0.5s ease, opacity 0.5s ease");
+    window.location.href = posts[active.y - 1].getAttribute("href");
     event.preventDefault();
-    updateView();
   }
   else if (event.keyCode == 37 && active.y == 0 && active.x >= 1) {
     active.x--;
     event.preventDefault();
     updateView();
-  } else if (event.keyCode == 38 && active.y >= 1) {
+  } else if (event.keyCode == 38 && active.x == 1 && active.y >= 1) {
     active.y--
     event.preventDefault();
     updateView();
@@ -61,7 +65,7 @@ document.addEventListener("keydown", function (event) {
     active.x++
     event.preventDefault();
     updateView();
-  } else if (event.keyCode == 40 && active.y < posts.length) {
+  } else if (event.keyCode == 40 && active.x == 1 && active.y < posts.length) {
     active.y++
     event.preventDefault();
     updateView();

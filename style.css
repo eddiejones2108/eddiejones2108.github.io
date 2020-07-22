@@ -1,22 +1,37 @@
 html,
 body {
-  overflow: hidden;
   margin: 0;
+  box-sizing: content-box;
+  overflow: hidden;
   height: 100%;
+  width: 100%;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 18pt;
+  font-size: 1.2em;
   background: #fafafa;
   color: #383a42;
 }
 
 header {
   position: absolute;
-  right: 0;
-  height: 100%;
-  z-index: 2;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  color: #fafafa;
+  box-sizing: content-box;
+  color: #fafafa
+}
+
+@media screen and (orientation:landscape) {
+  header {
+    right: 0;
+    height: 100%;
+    z-index: 2;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+@media screen and (orientation:portrait) {
+  header {
+    left: 0;
+    width: 100%;
+  }
 }
 
 h1 {
@@ -43,31 +58,6 @@ h2:hover {
   cursor: pointer;
 }
 
-.help {
-  position: absolute;
-  right: 3em;
-  font-size: 300%;
-  opacity: 25%;
-}
-
-.help:hover {
-  opacity: 100%;
-  cursor: help;
-}
-
-.help:hover:before {
-  position: absolute;
-  float: right;
-  top: 3em;
-  right: 2.5em;
-  width: 10em;
-  content: "Use the arrow keys to navigate. Sorry mobile users but design decisions had to be made.";
-  font-size: 20%;
-  letter-spacing: 0.75pt;
-  font-weight: lighter;
-  color: #0184bc;
-}
-
 a,
 em,
 .arrow-link {
@@ -91,43 +81,47 @@ a:visited {
   text-decoration: none;
 }
 
-.squish th, .squish tr {
+.squish * {
   font-size: smaller;
 }
 
 th,
 tr {
-  padding-left: 10px;
-  padding-top: 5px;
+  padding-left: 1em;
+  padding-top: .5em;
   font-weight: normal;
   text-align: left;
 }
 
 h3 {
-  font-size: 200%;
+  font-size: 2em;
 }
 
 .slide {
   position: absolute;
-  left: calc(50% - 400px - 4.33em);
-  width: 800px;
+  left: calc(50% - 25% - 4.33em);
+  width: 50%;
   display: table-cell;
-  padding: 20px;
+  padding: 1.5%;
   margin: 0;
   border: 1px solid #383a42;
   border-radius: 5px;
   transition: transform 0.5s ease, opacity 0.5s ease;
   box-sizing: border-box;
+  overflow: hidden;
+  background-color: #fafafa;
 }
 
 section {
-  /* height: 75%; */
-  height: 500px;
-  top: calc(50% - (500px / 2));
+  height: 75%;
+  max-height: 500px;
+  /* height: 500px; */
+  top: calc(50% - (75% / 2));
 }
 
 article {
-  /* height: 15%; */
-  height: 100px;
-  top: calc(50% + (500px / 2) + (100px / 2));
+  height: 15%;
+  max-height: 100px;
+  /* height: 100px; */
+  top: calc(50% + (75% / 2) + (15% / 2));
 }
