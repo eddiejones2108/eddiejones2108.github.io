@@ -47,8 +47,6 @@ main {
 
    header {
     writing-mode: vertical-rl;
-    right: 0;
-    height: 100%;
   }
 }
 
@@ -130,6 +128,7 @@ section {
 blockquote {
   quotes: "\201C""\201D""\2018""\2019";
 }
+
 blockquote:before {
   content: open-quote;
   font-size: 4em;
