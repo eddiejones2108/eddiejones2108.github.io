@@ -13,12 +13,6 @@ html, body {
   background-color: var(--white);
 }
 
-header {
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
-}
-
 h1 {
 	font-size: xx-large;
 }
@@ -42,29 +36,26 @@ header {
 		"title ."
 		"description description"
 		". contact";
+
 	width: calc(560px - 32px);
 	padding: 32px 0;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-header > * {
-		margin-top: 0;
-		margin-bottom: 0;
+.title {
+	align-self: baseline;
+	grid-area: title;
+	flex: 0 1 25%;
 }
 
-header .title {
-		align-self: baseline;
-		grid-area: title;
-		flex: 0 1 25%;
-}
-
-header .description {
+.description {
 	align-self: baseline;
 	grid-area: description;
-	margin-left: 32px;
-	margin-right: 32px;
+	margin: 0px;
 }
 
-header .contact {
+.contact {
 	align-self: flex-start;
 	grid-area: contact;
 	justify-self: flex-end;
@@ -82,9 +73,10 @@ header .contact {
 	}
 }
 
-@media only screen and (min-width:1136px) {
+@media only screen and (min-width:1140px) {
 	header  {
-		width: calc(100% - 64px);
+		width: calc(min(1840px, 100%) - 64px);
+		grid-column-gap: 64px;
 		grid-template-rows: auto;
 		grid-auto-flow: row;
 		grid-template-areas:
@@ -93,7 +85,14 @@ header .contact {
 			". description .";
 	}
 
-	header .contact {
+	.title {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.contact {
 		justify-self: flex-start !important;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 }
