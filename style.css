@@ -8,13 +8,16 @@
 
 html, body {
 	font-size: xx-large;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--black);
+  font-family: "Fira Code";
+	color: var(--black);
+	height: 100%;
   background-color: var(--white);
 }
 
 h1 {
 	font-size: xx-large;
+	margin: 0;
+	padding: 0;
 }
 
 a, a:visited {
@@ -24,6 +27,7 @@ a, a:visited {
 
 a:hover {
 	color: var(--blue);
+	cursor: pointer;
 }
 
 .contact a {
@@ -36,8 +40,9 @@ header {
 		"title ."
 		"description description"
 		". contact";
-
-	width: calc(560px - 32px);
+	grid-column-gap: 0px;
+	grid-row-gap: 32px;
+	width: calc(100% - 32px);
 	padding: 32px 0;
 	margin-left: auto;
 	margin-right: auto;
@@ -47,36 +52,30 @@ header {
 	align-self: baseline;
 	grid-area: title;
 	flex: 0 1 25%;
+	margin: 0;
+	padding: 0;
 }
 
 .description {
 	align-self: baseline;
 	grid-area: description;
-	margin: 0px;
+	margin: 0;
+	padding: 0;
 }
 
 .contact {
 	align-self: flex-start;
 	grid-area: contact;
 	justify-self: flex-end;
+	margin: 0;
+	padding: 0;
 }
 
-@media only screen and (min-width:640px) {
-	header {
-			width: calc(640px - 32px);
-	}
-}
-
-@media only screen and (min-width:782px) {
+@media only screen and (min-width:1024px) {
 	header  {
-			width: calc(782px - 32px);
-	}
-}
-
-@media only screen and (min-width:1140px) {
-	header  {
-		width: calc(min(1840px, 100%) - 64px);
+		width: calc(min(1800px, 100%) - 64px);
 		grid-column-gap: 64px;
+		grid-row-gap: 0px;
 		grid-template-rows: auto;
 		grid-auto-flow: row;
 		grid-template-areas:
@@ -85,14 +84,11 @@ header {
 			". description .";
 	}
 
-	.title {
-		margin-top: 0;
-		margin-bottom: 0;
-	}
-
 	.contact {
 		justify-self: flex-start !important;
-		margin-top: 0;
-		margin-bottom: 0;
 	}
+}
+
+ .wrap {
+	border-right: 0.08em solid var(--red);
 }
