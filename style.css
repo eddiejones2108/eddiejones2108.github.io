@@ -7,18 +7,62 @@
 }
 
 html, body {
-	font-size: xx-large;
-  font-family: "Fira Code";
-	color: var(--black);
+	width: 100%;
 	height: 100%;
-	background-color: var(--white);
-	overflow: hidden;
-}
-
-h1 {
-	font-size: xx-large;
 	margin: 0;
 	padding: 0;
+}
+
+body {
+	font-size: 2em;
+  font-family: "Fira Code";
+	color: var(--black);
+	background-color: var(--white);
+}
+
+.grid {
+	display: grid;
+	grid-template-areas:
+		"title ."
+		"description description"
+		". contact"
+		"carousel carousel";
+	grid-template-rows: min-content min-content min-content auto;
+	row-gap: 32px;
+	column-gap: 0px;
+
+	width: calc(100% - 32px);
+	height: 100%;
+
+	padding-top: 32px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title {
+	grid-area: title;
+	font-weight: bold;
+}
+
+.contact {
+	grid-area: contact;
+	justify-self: flex-end;
+}
+
+.description {
+	grid-area: description;
+}
+
+.carousel {
+	grid-area: carousel;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 2em;
 }
 
 a, a:visited {
@@ -31,78 +75,24 @@ a:hover {
 	cursor: pointer;
 }
 
-.contact a {
-	padding: 0 3pt;
-}
-
 .carousel a {
-	font-weight: bold;
-	font-size: 2em;
 	border-right: 0.08em solid var(--red);
 }
 
-.carousel {
-	display: flex;
-	grid-area: carousel;
-	/* text-align: center;*/
-	justify-content: center;
-	align-items: center;
-}
-
-header {
-	display: grid;
-	grid-template-areas:
-		"title ."
-		"description description"
-		". contact"
-		"carousel carousel";
-	grid-column-gap: 0px;
-	grid-template-rows: min-content min-content min-content auto;
-	grid-row-gap: 32px;
-	width: calc(100% - 32px);
-	height: 100%;
-	padding: 32px 0;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.title {
-	align-self: baseline;
-	grid-area: title;
-	flex: 0 1 25%;
-	margin: 0;
-	padding: 0;
-}
-
-.description {
-	align-self: baseline;
-	grid-area: description;
-	margin: 0;
-	padding: 0;
-}
-
-.contact {
-	align-self: flex-start;
-	grid-area: contact;
-	justify-self: flex-end;
-	margin: 0;
-	padding: 0;
-}
-
 @media only screen and (min-width:1024px) {
-	header  {
-		width: calc(min(1800px, 100%) - 64px);
-		grid-column-gap: 64px;
-		grid-row-gap: 0px;
-		grid-auto-flow: row;
+	.grid  {
+		row-gap: 0px;
+		column-gap: 64px;
 		grid-template-areas:
 			"title   description"
 			"contact description"
 			". description"
 			"carousel carousel";
+
+		width: calc(min(1800px, 100%) - 64px);
 	}
 
 	.contact {
-		justify-self: flex-start !important;
+		justify-self: flex-start;
 	}
 }
