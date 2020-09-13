@@ -1,52 +1,45 @@
-class TxtRotate {
-  constructor(el, toRotate) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = 1000;
-    this.txt = '';
+class Carousel {
+  constructor(element) {
+    this.element = element;
+    this.links = Array.from(element.getElementsByTagName("a"));
+    this.index = 0;
+    this.length = 0;
+    this.deleting = false;
     this.tick();
-    this.isDeleting = false;
   }
 
   tick() {
-    var i = this.loopNum % this.toRotate.length;
-    var fullTxt = this.toRotate[i];
+    let link = this.links[this.index];
 
-    if (this.isDeleting) {
-      this.txt = fullTxt.substring(0, this.txt.length - 1);
+    this.element.innerHTML = '<a href="' + link.href + '">' + link.text.substr(0, this.length) + '</a>';
+
+    if (this.deleting) {
+      if (this.length == 0) {
+        this.deleting = false;
+        this.index = (this.index + 1) % this.links.length;
+        setTimeout(() => this.tick(), 500);
+      }
+      else {
+        this.length--;
+        setTimeout(() => this.tick(), 50);
+      }
     }
     else {
-      this.txt = fullTxt.substring(0, this.txt.length + 1);
+      if (this.length == link.text.length) {
+        this.deleting = true;
+        setTimeout(() => this.tick(), 1500);
+      }
+      else {
+        this.length++;
+        setTimeout(() => this.tick(), 100);
+      }
     }
-
-    this.el.innerHTML = '<h1><a class="wrap">' + this.txt + '</a></h1>';
-
-    var that = this;
-    var delta = 100;
-
-    if (this.isDeleting) { delta = 50; }
-
-    if (!this.isDeleting && this.txt === fullTxt) {
-      delta = this.period;
-      this.isDeleting = true;
-    }
-    else if (this.isDeleting && this.txt === '') {
-      this.isDeleting = false;
-      this.loopNum++;
-      delta = 500;
-    }
-
-    setTimeout(function () {
-      that.tick();
-    }, delta);
   }
 }
-
 
 window.onload = function () {
   var elements = document.getElementsByClassName('carousel');
   for (var i = 0; i < elements.length; i++) {
-    new TxtRotate(elements[i], [ "Reto password managers", "Some other items" ]);
+    new Carousel(elements[i]);
   }
 };

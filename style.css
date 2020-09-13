@@ -11,7 +11,8 @@ html, body {
   font-family: "Fira Code";
 	color: var(--black);
 	height: 100%;
-  background-color: var(--white);
+	background-color: var(--white);
+	overflow: hidden;
 }
 
 h1 {
@@ -34,15 +35,32 @@ a:hover {
 	padding: 0 3pt;
 }
 
+.carousel a {
+	font-weight: bold;
+	font-size: 2em;
+	border-right: 0.08em solid var(--red);
+}
+
+.carousel {
+	display: flex;
+	grid-area: carousel;
+	/* text-align: center;*/
+	justify-content: center;
+	align-items: center;
+}
+
 header {
 	display: grid;
 	grid-template-areas:
 		"title ."
 		"description description"
-		". contact";
+		". contact"
+		"carousel carousel";
 	grid-column-gap: 0px;
+	grid-template-rows: min-content min-content min-content auto;
 	grid-row-gap: 32px;
 	width: calc(100% - 32px);
+	height: 100%;
 	padding: 32px 0;
 	margin-left: auto;
 	margin-right: auto;
@@ -76,19 +94,15 @@ header {
 		width: calc(min(1800px, 100%) - 64px);
 		grid-column-gap: 64px;
 		grid-row-gap: 0px;
-		grid-template-rows: auto;
 		grid-auto-flow: row;
 		grid-template-areas:
-			"title   description ."
-			"contact description ."
-			". description .";
+			"title   description"
+			"contact description"
+			". description"
+			"carousel carousel";
 	}
 
 	.contact {
 		justify-self: flex-start !important;
 	}
-}
-
- .wrap {
-	border-right: 0.08em solid var(--red);
 }
