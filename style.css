@@ -26,22 +26,26 @@ body {
 		"title ."
 		"description description"
 		". contact"
-		"carousel carousel";
+		"content content";
+	grid-template-columns: 212px auto;
 	grid-template-rows: min-content min-content min-content auto;
 	row-gap: 32px;
 	column-gap: 0px;
 
 	width: calc(100% - 32px);
-	height: 100%;
+	height: calc(100% - 62px);
 
 	padding-top: 32px;
+	padding-bottom: 32px;
 	margin-left: auto;
 	margin-right: auto;
+
+	max-width: 1670px;
 }
 
 .title {
 	grid-area: title;
-	font-weight: bold;
+	word-wrap: none;
 }
 
 .contact {
@@ -54,7 +58,7 @@ body {
 }
 
 .carousel {
-	grid-area: carousel;
+	grid-area: content;
 
 	display: flex;
 	align-items: center;
@@ -63,6 +67,14 @@ body {
 	text-align: center;
 	font-weight: bold;
 	font-size: 2em;
+}
+
+.content {
+	grid-area: content;
+	padding-top: 64px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1024px;
 }
 
 a, a:visited {
@@ -79,7 +91,14 @@ a:hover {
 	border-right: 0.08em solid var(--red);
 }
 
-@media only screen and (min-width:1024px) {
+.drop-cap:first-letter {
+	float: left;
+	font-size: 3em;
+	line-height: 0.66;
+	margin: 0 0.1em 0 0;
+}
+
+@media only screen and (min-width:1371px) {
 	.grid  {
 		row-gap: 0px;
 		column-gap: 64px;
@@ -87,9 +106,7 @@ a:hover {
 			"title   description"
 			"contact description"
 			". description"
-			"carousel carousel";
-
-		width: calc(min(1800px, 100%) - 64px);
+			"content content";
 	}
 
 	.contact {
