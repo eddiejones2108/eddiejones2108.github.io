@@ -27,7 +27,7 @@ body {
 		"description description"
 		". contact"
 		"content content";
-	grid-template-columns: 212px auto;
+	grid-template-columns: 160px auto;
 	grid-template-rows: min-content min-content min-content auto;
 	row-gap: 32px;
 	column-gap: 0px;
@@ -88,14 +88,32 @@ a:hover {
 }
 
 .carousel a {
-	border-right: 0.08em solid var(--red);
+	animation: cursor 0.375s step-end infinite alternate;
 }
 
-.drop-cap:first-letter {
-	float: left;
-	font-size: 3em;
-	line-height: 0.66;
-	margin: 0 0.1em 0 0;
+@keyframes cursor {
+	0% { border-right: 0.08em solid var(--red);}
+	50% { border-right: 0.08em solid var(--white);}
+}
+
+.drop-cap::first-letter {
+  padding: 0 .3rem;
+  margin: 0 .3rem 0 0;
+
+  font-size: 4rem;
+  float: left;
+  line-height: 1;
+}
+
+.title::first-letter {
+  padding: 0 .3rem;
+  margin: 0 .3rem 0 0;
+  border: 2px solid var(--blue);
+	border-radius: 8px;
+
+  font-size: 4rem;
+  float: left;
+  line-height: 1;
 }
 
 @media only screen and (min-width:1371px) {
