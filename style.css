@@ -71,7 +71,7 @@ body {
 
 .content {
 	grid-area: content;
-	padding-top: 64px;
+	padding-top: 32px;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 1024px;
@@ -130,4 +130,20 @@ a:hover {
 	.contact {
 		justify-self: flex-start;
 	}
+
+	.content {
+		padding-top: 64px;
+	}
+}
+
+.content h1 {
+	padding-top: 0;
+	margin-top: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+.date {
+	text-align: right;
+	/* justify-self: flex-end; */
 }
