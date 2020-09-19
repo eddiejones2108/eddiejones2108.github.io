@@ -88,12 +88,7 @@ a:hover {
 }
 
 .carousel a {
-	animation: cursor 0.375s step-end infinite alternate;
-}
-
-@keyframes cursor {
-	0% { border-right: 0.08em solid var(--red);}
-	50% { border-right: 0.08em solid var(--white);}
+	border-right: 0.08em solid var(--red);
 }
 
 .drop-cap::first-letter {
@@ -145,5 +140,4 @@ a:hover {
 
 .date {
 	text-align: right;
-	/* justify-self: flex-end; */
 }

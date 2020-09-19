@@ -16,7 +16,8 @@ class Carousel {
     if (this.deleting) {
       if (this.length == 0) {
         this.deleting = false;
-        this.index = (this.index + 1) % this.links.length;
+        let delta =  Math.floor(Math.random() * (this.links.length - 1) + 1);
+        this.index = (this.index + delta) % this.links.length;
         setTimeout(() => this.tick(), 500);
       }
       else {
