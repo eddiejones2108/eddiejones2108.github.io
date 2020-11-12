@@ -16,25 +16,25 @@ body {
 }
 
 header {
-  font-size: 1.25em;
   margin: 2em 0;
   font-weight: bolder;
+  border-bottom: thin solid var(--grey);
+  overflow: auto;
 }
 
 .title {
-	font-size: 2rem;
-	display: inline;
+  font-size: 2em;
+  display: inline;
 }
 
 .description {
-	color: var(--grey);
-	font-size: smaller;
-	display: inline;
+  color: var(--grey);
+  display: inline;
 }
 
 .contact a {
   float: right;
-  font-size: 1.5em;
+  font-size: 2em;
   padding: 5px;
 }
 
