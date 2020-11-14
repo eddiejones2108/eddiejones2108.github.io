@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="typing.js"></script>
+
+  <title>Eddie Jones</title>
+</head>
+
+<body>
+  <header>
+    <div class="post-title">
+      Functional Flocks
+    </div>
+
+    <div class="contact">
+      <a href="index.html" rel="home"><span class="home">Eddie Jones;</span></a>
+      <a href="mailto: eddie.c.jones@outlook.com" class="fa fa-envelope"></a>
+      <a href="https://www.linkedin.com/in/edward-jones-b59a80151/" class="fa fa-linkedin"></a>
+      <a href="https://github.com/ec-jones" class="fa fa-github"></a>
+    </div>
+  </header>
+
+  <main>
+    <p>
+      The ability of nature to organise itself is not just impressive but often beautiful too.
+      When a group of starling flock together, they create a mesmerising acrobatic performance.
+      Apparently, we're not the only species that like to dance!
+    </p>
+
+    <figure>
+      <img src="geograph-2687912-by-Walter-Baxter.jpg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
+      <figcaption>
+        <div class="author">
+          <a href="https://www.geograph.org.uk/profile/6638">Walter Baxter</a>
+        </div>
+        <a href="https://www.geograph.org.uk/photo/2687912">A murmuration of starlings at Gretna</a>, Monday, 7
+        November, 2011
+        <br>
+        <br>
+        Available for reuse under the
+        <a href="https://creativecommons.org/licenses/by-sa/2.0/">Creative Commons licence</a>
+    </figure>
+
+    <p>
+      It's not just biologists that find the sight fascinating.
+      There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours,
+      particularly in optimisation.
+      If you can't beat 'em, join 'em!
+    </p>
+
+    <p>
+      <em>Boids</em> was one of the first algorithm designed to mimic flocking behaviour.
+      Each boid is governed by three simple forces:
+    <ul>
+      <li>Separation: try not to crash</li>
+      <li>Cohesion: follow the crowd</li>
+      <li>Alignment: look where the crowd is looking</li>
+    </ul>
+    </p>
+
+    <p>
+      While these forces update individual boids, they are inherently dependent on the position of neighbouring boids,
+      let's call it the <em>context</em>&#8230;
+    </p>
+
+    <h2>
+      Context-aware Pogramming
+    </h2>
+
+    <p>
+      While monads have been widely adopted in the functional programming community, their dual, <em>co</em>-monads,
+      are sadly not so popular &#128542;
+      I'm going to assume you've already come across the former as there are so many brilliant <a
+        href="https://bartoszmilewski.com/2016/11/21/monads-programmers-definition/">monad tutorials</a> that my
+      introduction would just confuse the matter.
+    </p>
+    <p>
+      Briefly though monads are just a convention for adding structure to the output of a function.
+      This allows us to clearly differentiate between the <span class="highlight-blue">result</span> and its
+      <span class="highlight-red">side-effects</span>:
+    </p>
+    <div class="code-line">
+      f :: a -> <span class="highlight-red">m</span> <span class="highlight-blue">b</span>
+    </div>
+    <p>
+      The side-effects must be composable, and there must be a notion of having no side-effects, i.e. being
+      <em>pure</em>:
+    </p>
+    <div class="code-line">
+      join :: <span class="highlight-red">m</span> (<span class="highlight-red">m</span> <span
+        class="highlight-blue">a</span>) -> <span class="highlight-red">m</span> <span class="highlight-blue">a</span>
+      <br>
+      return :: <span class="highlight-blue">a</span> -> <span class="highlight-red">m</span> <span
+        class="highlight-blue">a</span>
+    </div>
+    <p>
+      Similarly, comonads add structure to the input of the function; they tell us what's the <span
+        class="highlight-red">context</span> and what's the <span class="highlight-blue">focus</span>.
+      How do we decide which bit of information belongs where? Well, this is no different to deciding what counts as a
+      <em>side</em>-effect; perhaps I meant to put that bug there!?&#8230; it depends on the application.
+    </p>
+    <div class="code-line">
+      f :: <span class="highlight-red">w</span> <span class="highlight-blue">a</span> -> b
+    </div>
+    <p>
+      The corresponding notion of being <em>pure</em> is when the function doesn't depend on it's context.
+      The <em>extract</em> function does exactly that:
+    </p>
+    <div class="code-line">
+      extract :: <span class="highlight-red">w</span> <span class="highlight-blue">a</span> ->
+      <span class="highlight-blue">a</span>
+    </div>
+    <p>
+      To understand the analogous notion of composition, it is best to think of our comonad as some sort of container.
+      Within this container there are lots of objects of type <span class="highlight-blue">a</span>, one of which is the
+      current focus. However, we could focus on any of them, and they will all have a different view of their context.
+      The <em>duplicate</em> function records this context from each possible perspective, creating a container of
+      containers:
+    </p>
+    <div class="code-line">
+      duplicate :: <span class="highlight-red">w</span> <span class="highlight-blue">a</span> ->
+      <span class="highlight-red">w</span> (<span class="highlight-red">w</span> <span class="highlight-blue">a</span>)
+    </div>
+
+    <h2>
+      The Flock Comonad
+    </h2>
+    <p>
+      Our three boid update functions have a natural focus and context; the current boid we're updating and it's
+      neighbours.
+      In other words, the flock is a <span class="highlight-red">container</span> full of
+      <span class="highlight-blue">boids</span>.
+      And as we just mentioned, each boid will have a different view of the flock.
+    </p>
+    <p>type Flock p a = p -> a</p>
+  </main>
+</body>
+
+</html>

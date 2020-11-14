@@ -12,7 +12,8 @@ body {
   background-color: var(--white);
   margin: 0 auto;
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
+  overflow-y: scroll;
 }
 
 header {
@@ -27,15 +28,30 @@ header {
   display: inline;
 }
 
+.post-title {
+  font-size: 2.5em;
+}
+
 .description {
+  vertical-align: bottom;
   color: var(--grey);
   display: inline;
 }
 
+.contact {
+  text-align: right;
+  padding-bottom: 5px;
+}
+
 .contact a {
-  float: right;
+  display: inline-block;
   font-size: 2em;
-  padding: 5px;
+  /* padding: 5px; */
+}
+
+.contact a span.home {
+  font-size: 0.75em;
+  vertical-align: middle;
 }
 
 a, a:visited {
@@ -48,6 +64,14 @@ a:hover {
   cursor: pointer
 }
 
+main a {
+  font-style: italic;
+}
+
+h2 a {
+  font-style: normal;
+}
+
 del {
   text-decoration-color: var(--red);
 }
@@ -55,4 +79,54 @@ del {
 ins {
   font-style: italic;
   color: var(--blue);
+}
+
+p {
+  font-size: 1.125em;
+}
+
+figure {
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+}
+
+img {
+  width:100%;
+  object-fit: contain;
+}
+
+figcaption {
+  padding: 2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100%-4em);
+  height: calc(100% - 4em);
+  background-color: var(--white);
+  opacity: 0;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+figure:hover figcaption {
+  opacity: 0.75;
+}
+
+.author {
+  float: right;
+  padding-left: 2em;
+}
+
+.code-line {
+  text-align: center;
+  font-size: 1.75em;
+}
+
+.highlight-blue {
+  color: var(--blue);
+}
+
+.highlight-red {
+  color: var(--red);
 }
