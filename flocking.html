@@ -31,12 +31,12 @@
   <main>
     <p>
       The ability of nature to organise itself is not just impressive but often beautiful too.
-      When a group of starling flock together, they create a mesmerising acrobatic performance.
+      When a group of starlings flock together, they create a mesmerising acrobatic performance.
       Apparently, we're not the only species that like to dance!
     </p>
 
     <figure>
-      <img src="geograph-2687912-by-Walter-Baxter.jpg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
+      <img src="img/geograph-2687912-by-Walter-Baxter.jpg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
       <figcaption>
         <div class="author">
           <a href="https://www.geograph.org.uk/profile/6638">Walter Baxter</a>
@@ -47,6 +47,7 @@
         <br>
         Available for reuse under the
         <a href="https://creativecommons.org/licenses/by-sa/2.0/">Creative Commons licence</a>
+      </figcaption>
     </figure>
 
     <p>
@@ -57,7 +58,7 @@
     </p>
 
     <p>
-      <em>Boids</em> was one of the first algorithm designed to mimic flocking behaviour.
+      <em>Boids</em> was one of the first algorithms designed to mimic flocking behaviour.
       Each boid is governed by three simple forces:
     <ul>
       <li>Separation: try not to crash</li>
@@ -91,8 +92,7 @@
       f :: a -> <span class="highlight-red">m</span> <span class="highlight-blue">b</span>
     </div>
     <p>
-      The side-effects must be composable, and there must be a notion of having no side-effects, i.e. being
-      <em>pure</em>:
+      The side-effects must be composable, and there is a notion of having no side-effects, i.e. being <em>pure</em>:
     </p>
     <div class="code-line">
       join :: <span class="highlight-red">m</span> (<span class="highlight-red">m</span> <span
@@ -112,7 +112,7 @@
     </div>
     <p>
       The corresponding notion of being <em>pure</em> is when the function doesn't depend on it's context.
-      The <em>extract</em> function does exactly that:
+      The <em>extract</em> function does exactly that, just returning the focus:
     </p>
     <div class="code-line">
       extract :: <span class="highlight-red">w</span> <span class="highlight-blue">a</span> ->
@@ -137,10 +137,38 @@
       Our three boid update functions have a natural focus and context; the current boid we're updating and it's
       neighbours.
       In other words, the flock is a <span class="highlight-red">container</span> full of
-      <span class="highlight-blue">boids</span>.
-      And as we just mentioned, each boid will have a different view of the flock.
+      <span class="highlight-blue">boids</span> that is ripe for comonadification.
     </p>
-    <p>type Flock p a = p -> a</p>
+    <div class="code-line">
+      type Flock a = R2 -> Maybe a
+    </div>
+    <p>
+      Concretely, a flock is represented by a partial function between positions and boids.
+      The boid in focus will always be in position (0, 0).
+      But it's in the duplicate function that the real magic happens:
+    </p>
+
+    <figure>
+      <img src="img/drawing.svg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
+    </figure>
+
+    <p>
+      As we just mentioned, each boid will have a different view of the flock, and the duplicate function encodes this
+      view. In terms of linear algebra we can think of each boid being replaced by a copy of the flock except there has
+      been a change of basis so that the focus, i.e. the zero point, is that boid.
+    </p>
+
+    <p>
+      We can now compose and <em>extend</em> our boid update functions so that they apply to the entire flock in a
+      particularly clean way.
+      <div class="code-line">
+        applyForce = extend cohesion . extend align . extend separation
+      </div>
+    </p>
+
+    <p>
+      gist
+    </p>
   </main>
 </body>
 
