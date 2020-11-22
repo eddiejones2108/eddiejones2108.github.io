@@ -46,12 +46,17 @@ header {
 .contact a {
   display: inline-block;
   font-size: 2em;
-  /* padding: 5px; */
 }
 
 .contact a span.home {
   font-size: 0.75em;
   vertical-align: middle;
+}
+
+.main-list {
+  display: block;
+  margin: 1em 0;
+  padding: 0 40px;
 }
 
 a, a:visited {
@@ -68,7 +73,16 @@ main a {
   font-style: italic;
 }
 
-h2 a {
+summary {
+  font-size: 1.5em;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  list-style: none;
+  transition: 0.3s linear;
+}
+
+summary a {
   font-style: normal;
 }
 
@@ -92,7 +106,7 @@ figure {
 }
 
 img {
-  width:100%;
+  width: 100%;
   object-fit: contain;
 }
 
@@ -125,7 +139,6 @@ figure:hover figcaption {
     padding-left: 0em;
     padding-bottom: 1em;
   }
-
   figure {
     font-size: smaller;
   }
@@ -142,4 +155,37 @@ figure:hover figcaption {
 
 .highlight-red {
   color: var(--red);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary~* {
+  animation: open 0.3s ease-in-out;
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+details summary::before {
+  display: inline-block;
+  content: "+";
+  margin-left: -0.5em;
+  margin-right: 0.5em;
+  transition: 0.3s ease-in-out;
+}
+
+details summary:hover:before {
+  color: var(--blue);
+}
+
+details[open] summary::before {
+  transform: rotate(45deg);
 }

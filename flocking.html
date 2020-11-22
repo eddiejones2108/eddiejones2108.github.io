@@ -23,7 +23,7 @@
     <div class="contact">
       <a href="index.html" rel="home"><span class="home">Eddie Jones;</span></a>
       <a href="mailto: eddie.c.jones@outlook.com" class="fa fa-envelope"></a>
-      <a href="https://www.linkedin.com/in/edward-jones-b59a80151/" class="fa fa-linkedin"></a>
+      <a href="https://www.linkedin.com/in/eddie-jones-b59a80151/" class="fa fa-linkedin"></a>
       <a href="https://github.com/ec-jones" class="fa fa-github"></a>
     </div>
   </header>
@@ -112,7 +112,7 @@
     </div>
     <p>
       The corresponding notion of being <em>pure</em> is when the function doesn't depend on it's context.
-      The <em>extract</em> function does exactly that, just returning the focus:
+      The <em>extract</em> function just returs the focus:
     </p>
     <div class="code-line">
       extract :: <span class="highlight-red">w</span> <span class="highlight-blue">a</span> ->
@@ -158,13 +158,22 @@
       been a change of basis so that the focus, i.e. the zero point, is that boid.
     </p>
 
+    <div class="code-line">
+      duplicate f v = (f . subtract v) <$ f v
+    </div>
+
+    <p>
+      Explain extend graphically
+    </p>
+
     <p>
       We can now compose and <em>extend</em> our boid update functions so that they apply to the entire flock in a
       particularly clean way.
-      <div class="code-line">
-        applyForce = extend cohesion . extend align . extend separation
-      </div>
     </p>
+
+    <div class="code-line">
+      applyForce = extend cohesion . extend align . extend separation
+    </div>
 
     <p>
       gist
