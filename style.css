@@ -75,11 +75,13 @@ main a {
 
 summary {
   font-size: 1.5em;
+  width: 100%;
   font-weight: bold;
   outline: none;
   cursor: pointer;
   list-style: none;
   transition: 0.3s linear;
+  display: inline-block;
 }
 
 summary a {
@@ -188,4 +190,12 @@ details summary:hover:before {
 
 details[open] summary::before {
   transform: rotate(45deg);
+}
+
+.draft {
+  float: right;
+  font-size: small;
+  font-style: italic;
+  color: var(--red);
+  margin-right: 2em;
 }
