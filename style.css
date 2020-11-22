@@ -4,6 +4,7 @@
   --grey: #383a42bb;
   --red: #e45649;
   --blue: #0184bc;
+  --green: #50A14F;
 }
 
 body {
@@ -73,6 +74,10 @@ main a {
   font-style: italic;
 }
 
+main {
+  margin-bottom: 5em;
+}
+
 summary {
   font-size: 1.5em;
   width: 100%;
@@ -126,6 +131,10 @@ figcaption {
 }
 
 figure:hover figcaption {
+  animation: open-half 0.3s ease-in-out;
+}
+
+figcaption:hover {
   opacity: 0.75;
 }
 
@@ -151,12 +160,16 @@ figure:hover figcaption {
   font-size: 1.75em;
 }
 
-.highlight-blue {
+.blue {
   color: var(--blue);
 }
 
-.highlight-red {
+.red {
   color: var(--red);
+}
+
+.green {
+  color: var(--green);
 }
 
 details summary::-webkit-details-marker {
@@ -176,6 +189,15 @@ details[open] summary~* {
   }
 }
 
+@keyframes open-half {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.75;
+  }
+}
+
 details summary::before {
   display: inline-block;
   content: "+";
@@ -192,10 +214,16 @@ details[open] summary::before {
   transform: rotate(45deg);
 }
 
+details > div {
+  margin: 0 1em;
+}
+
 .draft {
   float: right;
-  font-size: small;
+  font-size: 0.75em;
   font-style: italic;
   color: var(--red);
-  margin-right: 2em;
+  margin-right: 1em;
+  vertical-align: middle;
+  line-height: calc(4/3 * (1 / 0.75) * 1em);
 }
