@@ -87,6 +87,7 @@ summary {
   list-style: none;
   transition: 0.3s linear;
   display: inline-block;
+  margin: 0.5em 0;
 }
 
 summary a {
