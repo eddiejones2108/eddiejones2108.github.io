@@ -51,7 +51,7 @@ header {
 
 .contact a span.home {
   font-size: 0.75em;
-  vertical-align: middle;
+  vertical-align: 0.2em;
 }
 
 .main-list {
