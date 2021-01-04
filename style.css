@@ -228,3 +228,35 @@ details > div {
   vertical-align: middle;
   line-height: calc(4/3 * (1 / 0.75) * 1em);
 }
+
+.timeline-item {
+	padding: 3em 2em 2em;
+	position: relative;
+	border-left: thin solid var(--grey);
+}
+
+.timeline-item::before {
+  content: attr(date-is);
+  position: absolute;
+  left: 2em;
+  font-weight: bold;
+  top: 1em;
+  display: block;
+  font-weight: bold;
+}
+
+.timeline-item::after {
+  width: 10px;
+  height: 10px;
+  display: block;
+  top: 1em;
+  position: absolute;
+  left: -7px;
+  border-radius: 10px;
+  content: '';
+  border: 2px solid var(--grey);
+}
+
+.timeline-item:last-child {
+  border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+}
