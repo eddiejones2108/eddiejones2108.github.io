@@ -7,9 +7,9 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code">
-
   <link rel="stylesheet" href="style.css">
-  <script src="typing.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
   <title>Curriculum Vitae</title>
 </head>
@@ -30,71 +30,104 @@
   </header>
 
   <main>
-    <div class="timeline-item" date-is="Jan 2021">
+    <fieldset>
+      <legend>Filters</legend>
+      <label>
+        <input type="radio" value="all" name="filters" checked />
+        <span>All</span>
+      </label>
+      <label>
+        <input type="radio" value="pub" name="filters" />
+        <span>Publications &amp; Research</span>
+      </label>
+      <label>
+        <input type="radio" value="teach" name="filters" />
+        <span>Teaching</span>
+      </label>
+      <label>
+        <input type="radio" value="edu" name="filters" />
+        <span>Education</span>
+      </label>
+    </fieldset>
+
+    <img src="img/square mug.jpg" class="mug-shot">
+
+    <div topic="pub" class="timeline-item" date-is="Jan 2021">
       <h2>Intensional Datatype Refinements &dash; POPL21</h2>
       <p>
         In <a href="https://arxiv.org/abs/2008.01452">this paper</a>, we present a higher-order program analysis that
         detects any pattern-matching errors.
         More importantly, however, unlike previous approaches, we tackle the issue of performance.
-        By uncovering the right restrictions, we create a <em>compositional</em> analysis that is ultimately linear in the size of the program!
+        By uncovering the right restrictions, we create a <em>compositional</em> analysis that is ultimately linear in
+        the size of the program!
       </p>
 
       <p>
-        Its performance is witnessed not just by a formal complexity guarantee but also an efficient implementation as a <a
-          href="https://hackage.haskell.org/package/intensional-datatys">GHC plugin</a>.
+        Its performance is witnessed not just by a formal complexity guarantee but also an efficient implementation as a
+        <a href="https://hackage.haskell.org/package/intensional-datatys">GHC plugin</a>.
       </p>
 
       <p>
-        My presentation on the paper is available <a href="https://app.clowdr.org/conference/popl2021/item/266b4009-5447-4082-b6aa-844001f7ccf6">here</a>.
+        My presentation on the paper is available <a
+          href="https://app.clowdr.org/conference/popl2021/item/266b4009-5447-4082-b6aa-844001f7ccf6">here</a>.
       </p>
     </div>
 
-    <div class="timeline-item" date-is="July 2019">
+    <div topic="edu" class="timeline-item" date-is="July 2019">
       <h2>Top Computer Science and Mathematics Graduate</h2>
     </div>
 
-    <div class="timeline-item" date-is="July 2019">
+    <div topic="edu" class="timeline-item" date-is="July 2019">
       <h2>BSc (Hons) Mathematics and Computer Science &dash; University of Bristol</h2>
       <p>
-        It is hard to summarise any qualification that spans several years in a few paragraphs, but especially so when academic achievements are entwined with personal development.
+        It is hard to summarise any qualification that spans several years in a few paragraphs, but especially so when
+        academic achievements are entwined with personal development.
       </p>
       <p>
-        I can, however, contrast the experience to some advice which I thankfully ignored: doing joint honours will make you a jack of all trades and a master of none.
-        Quite the opposite, I have found that fluency in mathematical thinking has given me the analytical skills necessary to shed new light on the practical challenges faced in computer science.
+        I can, however, contrast the experience to some advice which I thankfully ignored: doing joint honours will make
+        you a jack of all trades and a master of none.
+        Quite the opposite, I have found that fluency in mathematical thinking has given me the analytical skills
+        necessary to shed new light on the practical challenges faced in computer science.
       </p>
     </div>
 
-    <div class="timeline-item" date-is="June 2019">
+    <div topic="edu, pub" class="timeline-item" date-is="June 2019">
       <h2>The Dynamics of Dialects</h2>
       <p>
         My undergraduate dissertation focused on a different type of language - natural languages.
-        And in particular, the remarkable way in which huge populations have agreed upon coherent systems for communication.
+        And in particular, the remarkable way in which huge populations have agreed upon coherent systems for
+        communication.
         It received a first-class mark of 87&#37;.
       </p>
       <p>
-        I used a <a href="https://www.pnas.org/content/109/18/6819.full">model</a> of language acquisition to investigate how social <a href="https://en.wikipedia.org/wiki/Small-world_network">networks</a> influence the propagation of cultural symbols through a series of simulations.
-        The most interesting result was that agents' propensity to distance themselves in response to a misunderstanding was a more a significant factor than the desire to connect with similar agents in the formation of homogenous communities.
+        I used a <a href="https://www.pnas.org/content/109/18/6819.full">model</a> of language acquisition to
+        investigate how social <a href="https://en.wikipedia.org/wiki/Small-world_network">networks</a> influence the
+        propagation of cultural symbols through a series of simulations.
+        The most interesting result was that agents' propensity to distance themselves in response to a misunderstanding
+        was a more a significant factor than the desire to connect with similar agents in the formation of homogenous
+        communities.
         In the conclusion, I discussed the possible light this sheds on echo chambers.
       </p>
     </div>
 
-    <div class="timeline-item" date-is="October 2018">
+    <div topic="edu" class="timeline-item" date-is="October 2018">
       <h2>Top 10 Second Year Student in Computer Science</h2>
     </div>
 
-    <div class="timeline-item" date-is="October 2018">
+    <div topic="pub" class="timeline-item" date-is="October 2018">
       <h2>Applied Optimisation Research Internship</h2>
       <p>
-        This project considered the problem of designing a car park layout for a given space that maximised the number of cars.
+        This project considered the problem of designing a car park layout for a given space that maximised the number
+        of cars.
         It involved a satisfying mix of calculus, geometry, and simulation (mostly in MATLAB).
       </p>
     </div>
 
-    <div class="timeline-item" date-is="October 2017">
+    <div topic="edu" class="timeline-item" date-is="October 2017">
       <h2>Top 5 First Year Student in Computer Science</h2>
     </div>
 
-    <div class="timeline-item" date-is="August 2016">
+    <div topic="edu" class="timeline-item" date-is="August 2016">
       <h2>Peter Symonds College</h2>
 
       <p>
@@ -103,15 +136,31 @@
     </div>
 
 
-    <div class="timeline-item" date-is="<=2016">
+    <div topic="edu" class="timeline-item" date-is="<=2016">
       <ul>
         <li>13 GCSE incl. Maths, English, and French</li>
-        <li>National Citizen Service</li>
         <li>Grade 8 Saxophone</li>
         <li>2nd Dan black belt Taekwondo</li>
       </ul>
     </div>
   </main>
+
+
+  <script>
+    $('input[type="radio"][name="filters"]').change(function () {
+      $('.timeline-item').hide();
+      switch ($(this).attr("value")) {
+        case "all": $('.timeline-item').show();
+          break;
+        case "pub": $('.timeline-item[topic *= "pub"]').show();
+          break;
+        case "teach": $('.timeline-item[topic *= "teach"]').show();
+          break;
+        case "edu": $('.timeline-item[topic *= "edu"]').show();
+          break;
+      }
+    });
+  </script>
 </body>
 
 </html>

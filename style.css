@@ -1,3 +1,4 @@
+/* theme */
 :root {
   --white: #f5f5f5;
   --black: #383a42;
@@ -8,25 +9,25 @@
 }
 
 body {
-  font-family: "Fira Code";
-  color: var(--black);
-  background-color: var(--white);
   margin: 0 auto;
   width: 90%;
-  max-width: 700px;
-  overflow-y: scroll;
+  max-width: 800px;
+  font-family: "Fira Code", sans-serif;
+  color: var(--black);
+  background-color: var(--white);
 }
+
+/* index & header */
 
 header {
   margin: 2em 0;
   font-weight: bolder;
   border-bottom: thin solid var(--grey);
-  overflow: auto;
 }
 
 .title {
-  font-size: 2em;
   display: inline;
+  font-size: 2em;
 }
 
 .post-title {
@@ -34,30 +35,89 @@ header {
 }
 
 .description {
-  vertical-align: bottom;
-  color: var(--grey);
   display: inline;
+  font-weight: bolder;
+  color: var(--grey);
+  vertical-align: bottom;
+}
+
+del {
+  text-decoration-color: var(--red);
+}
+
+ins {
+  font-style: italic;
+  color: var(--blue);
 }
 
 .contact {
+  padding: 0.5em 0;
   text-align: right;
-  padding-bottom: 5px;
 }
 
 .contact a {
   display: inline-block;
+  font-style: normal;
   font-size: 2em;
 }
 
 .contact a span.home {
-  font-size: 0.75em;
   vertical-align: 0.2em;
+  font-size: 0.75em;
+}
+
+main {
+  margin-bottom: 5em;
 }
 
 .main-list {
-  display: block;
   margin: 1em 0;
   padding: 0 40px;
+}
+
+summary {
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] summary~* {
+  animation: open 0.3s ease-in-out;
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+details summary::before {
+  display: inline-block;
+  margin-left: -0.5em;
+  margin-right: 0.5em;
+  content: "+";
+  transition: 0.3s ease-in-out;
+}
+
+details summary:hover:before {
+  color: var(--blue);
+}
+
+details[open] summary::before {
+  transform: rotate(45deg);
+}
+
+details > div {
+  margin: 0 2em;
 }
 
 a, a:visited {
@@ -70,42 +130,102 @@ a:hover {
   cursor: pointer
 }
 
-main a {
+.author-date {
+  float: right;
+  padding-left: 1em;
+}
+
+.draft {
+  float: right;
+  line-height: 1.75em;
+  vertical-align: middle;
+  font-size: 0.75em;
   font-style: italic;
+  color: var(--red);
 }
 
-main {
-  margin-bottom: 5em;
+/* CV */
+
+label > input[type="radio"] {
+  display: none;
 }
 
-summary {
-  font-size: 1.5em;
-  width: 100%;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-  list-style: none;
-  transition: 0.3s linear;
+label > input[type="radio"] + *::before {
+  content: "";
   display: inline-block;
-  margin: 0.5em 0;
+  vertical-align: bottom;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-color: var(--grey);
 }
 
-summary a {
-  font-style: normal;
+label > input[type="radio"]:checked + * {
+  color: var(--green);
 }
 
-del {
-  text-decoration-color: var(--red);
+label > input[type="radio"]:checked + *::before {
+  background: radial-gradient(var(--green) 0%, var(--green) 40%, transparent 50%, transparent);
+  border-color: var(--gren);
 }
 
-ins {
-  font-style: italic;
-  color: var(--blue);
+label > input[type="radio"] + * {
+  display: block;
+  padding: 0.5rem 1rem;
 }
 
-p {
-  font-size: 1.125em;
+fieldset {
+  width: 45%;
+  display: inline;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  border: thin solid var(--grey);
 }
+
+.mug-shot {
+  width:45%;
+  display: inline;
+  max-height: 175px;
+  margin-bottom: 1em;
+}
+
+.timeline-item {
+	padding: 3em 2em 2em;
+  margin-left: 1em;
+	position: relative;
+	border-left: thin solid var(--grey);
+}
+
+.timeline-item::before {
+  content: attr(date-is);
+  position: absolute;
+  left: 2em;
+  font-weight: bold;
+  top: 1em;
+  display: block;
+  font-weight: bold;
+}
+
+.timeline-item::after {
+  width: 10px;
+  height: 10px;
+  display: block;
+  top: 1em;
+  position: absolute;
+  left: -7px;
+  border-radius: 10px;
+  content: '';
+  border: 2px solid var(--grey);
+}
+
+.timeline-item:last-child {
+  border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+}
+
+/* articles */
 
 figure {
   position: relative;
@@ -139,13 +259,8 @@ figcaption:hover {
   opacity: 0.75;
 }
 
-.author {
-  float: right;
-  padding-left: 2em;
-}
-
 @media only screen and (max-width: 700px) {
-  .author {
+  .author-date {
     float: none;
     display: block;
     padding-left: 0em;
@@ -171,92 +286,4 @@ figcaption:hover {
 
 .green {
   color: var(--green);
-}
-
-details summary::-webkit-details-marker {
-  display: none;
-}
-
-details[open] summary~* {
-  animation: open 0.3s ease-in-out;
-}
-
-@keyframes open {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes open-half {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.75;
-  }
-}
-
-details summary::before {
-  display: inline-block;
-  content: "+";
-  margin-left: -0.5em;
-  margin-right: 0.5em;
-  transition: 0.3s ease-in-out;
-}
-
-details summary:hover:before {
-  color: var(--blue);
-}
-
-details[open] summary::before {
-  transform: rotate(45deg);
-}
-
-details > div {
-  margin: 0 1em;
-}
-
-.draft {
-  float: right;
-  font-size: 0.75em;
-  font-style: italic;
-  color: var(--red);
-  margin-right: 1em;
-  vertical-align: middle;
-  line-height: calc(4/3 * (1 / 0.75) * 1em);
-}
-
-.timeline-item {
-	padding: 3em 2em 2em;
-	position: relative;
-	border-left: thin solid var(--grey);
-}
-
-.timeline-item::before {
-  content: attr(date-is);
-  position: absolute;
-  left: 2em;
-  font-weight: bold;
-  top: 1em;
-  display: block;
-  font-weight: bold;
-}
-
-.timeline-item::after {
-  width: 10px;
-  height: 10px;
-  display: block;
-  top: 1em;
-  position: absolute;
-  left: -7px;
-  border-radius: 10px;
-  content: '';
-  border: 2px solid var(--grey);
-}
-
-.timeline-item:last-child {
-  border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
 }
