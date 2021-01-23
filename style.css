@@ -184,27 +184,37 @@ label > input[type="radio"] + * {
 fieldset {
   width: 45%;
   display: inline;
-  margin-left: 1em;
+  margin-right: 1em;
   margin-bottom: 1em;
+  padding: 0;
   border: thin solid var(--grey);
 }
 
+legend {
+  margin-left: 0.75em;
+}
+
 .mug-shot {
-  width:45%;
+  width: 45%;
   display: inline;
-  max-height: 175px;
+  max-height: 184px;
+  margin-left: 1em;
   margin-bottom: 1em;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 690px) {
   fieldset {
-    width:90%;
+    width:100%;
     margin: 0 auto;
     margin-bottom: 1em;
   }
   .mug-shot {
     width: 100%;
     margin: 0 auto;
+  }
+
+  .timeline-item {
+    margin-left: 0em !important;
   }
 }
 
