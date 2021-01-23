@@ -5,6 +5,7 @@
   --grey: #383a42bb;
   --red: #e45649;
   --blue: #0184bc;
+  --purple: #B4009E;
   --green: #50A14F;
 }
 
@@ -130,8 +131,10 @@ details[open] summary::before {
   transform: rotate(45deg);
 }
 
-details > div {
+.post-description {
   margin: 0 2em;
+  font-weight: bolder;
+  color: var(--grey);
 }
 
 a, a:visited {
@@ -143,20 +146,6 @@ a, a:visited {
 a:hover {
   color: var(--blue);
   cursor: pointer
-}
-
-.author-date {
-  float: right;
-  padding-left: 1em;
-}
-
-.draft {
-  float: right;
-  line-height: 1.75em;
-  vertical-align: middle;
-  font-size: 0.75em;
-  font-style: italic;
-  color: var(--red);
 }
 
 /* CV */
@@ -263,7 +252,7 @@ legend {
 figure {
   position: relative;
   margin: 0 auto;
-  width: 90%;
+  width: 50%;
 }
 
 img {
@@ -271,17 +260,33 @@ img {
   object-fit: contain;
 }
 
+.author {
+  float: none;
+  display: block;
+  padding-left: 0em;
+  padding-bottom: 1em;
+}
+
 figcaption {
   padding: 2em;
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100%-4em);
+  width: calc(100%-8em);
   height: calc(100% - 4em);
   background-color: var(--white);
   opacity: 0;
   font-weight: bolder;
-  font-size: larger;
+  font-size: smaller;
+}
+
+@keyframes open-half {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.75;
+  }
 }
 
 figure:hover figcaption {
@@ -292,22 +297,14 @@ figcaption:hover {
   opacity: 0.75;
 }
 
-@media only screen and (max-width: 700px) {
-  .author-date {
-    float: none;
-    display: block;
-    padding-left: 0em;
-    padding-bottom: 1em;
-  }
-  figure {
-    font-size: smaller;
-  }
+.code-line {
+  padding-left: 2em;
+  padding-top: .5em;
+  padding-bottom: .5em;
+  text-align: left;
+  font-size: 1.25em;
 }
 
-.code-line {
-  text-align: center;
-  font-size: 1.75em;
-}
 
 .blue {
   color: var(--blue);
@@ -319,4 +316,8 @@ figcaption:hover {
 
 .green {
   color: var(--green);
+}
+
+.purple {
+  color: var(--purple);
 }

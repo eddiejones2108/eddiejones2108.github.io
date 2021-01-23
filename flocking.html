@@ -30,10 +30,6 @@
 
   <main>
     <p>
-      Apparently monads don't make for a good first blog post&hellip;
-    </p>
-
-    <p>
       Nature's ability to organise itself is not just impressive but often beautiful too.
       When a group of starlings flock together, they create a mesmerising acrobatic performance.
       Apparently, we're not the only species that like to dance!
@@ -42,7 +38,7 @@
     <figure>
       <img src="img/geograph-2687912-by-Walter-Baxter.jpg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
       <figcaption>
-        <div class="author-date">
+        <div class="author">
           <a href="https://www.geograph.org.uk/profile/6638">Walter Baxter</a>
         </div>
         <a href="https://www.geograph.org.uk/photo/2687912">A murmuration of starlings at Gretna</a>, Monday, 7
@@ -58,22 +54,22 @@
       It's not just biologists that find the sight fascinating.
       There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours,
       particularly in optimisation.
-      If you can't beat 'em, join 'em!
     </p>
 
     <p>
-      <em>Boids</em> was one of the first algorithms designed to mimic flocking behaviour.
-      Each boid is governed by three simple forces:
+      <a href="http://www.red3d.com/cwr/boids/">Boids</a> was one of the first algorithms designed to mimic flocking
+      behaviour.
+      Each boid (read bird) is governed by three simple forces:
     <ul>
       <li>Separation: try not to crash</li>
-      <li>Cohesion: follow the crowd</li>
-      <li>Alignment: look where the crowd is looking</li>
+      <li>Cohesion: stick together</li>
+      <li>Alignment: head where the crowd is heading</li>
     </ul>
     </p>
 
     <p>
-      While these forces update individual boids, they are inherently dependent on the position of neighbouring boids,
-      let's call it the <em>context</em>&#8230;
+      While these forces affect individual boids, they are inherently dependent on the position of neighbouring boids
+      &mdash; the context.
     </p>
 
     <h2>
@@ -81,88 +77,101 @@
     </h2>
 
     <p>
-      Monads have been widely adopted in the functional programming community, but dual, <em>co</em>-monads,
-      are sadly not so popular &#128542;
-      I'm going to assume you've already come across the former as there are so many brilliant <a
-        href="https://bartoszmilewski.com/2016/11/21/monads-programmers-definition/">monad tutorials</a> that my
-      introduction would just confuse the matter.
-    </p>
-    <p>
-      Briefly though monads are just a convention for adding structure to the output of a function.
-      This allows us to clearly differentiate between the <span class="blue">result</span> and its
-      <span class="red">side-effects</span>:
+      Monads have been widely adopted in the functional programming community, but their dual, <em>co</em>-monads, are
+      sadly not so popular &#128542;
+      Although monads play a broad and important role in category theory. For a programmer they are essentially a
+      convention for adding structure to the output of a function.
+      In particular, they allows us to clearly delineate its <span class="blue">result</span> and <span
+        class="red">side-effects</span>:
     </p>
     <div class="code-line">
       f :: a -> <span class="red">m</span> <span class="blue">b</span>
     </div>
     <p>
-      If we are to compose these functions we must also be able to compose the side-effects; they form a monoid with
-      unit (return) and multiplication (join):
+      Of course, this convention is meaningless without laws.
+      For monads, the laws concern the composition of effectful functions and the ability to lift pure functions into
+      this richer context.
+      Monadic functions must behave somewhat like pure functions in that composition is associative and has an identity.
     </p>
     <div class="code-line">
+      (>>=) :: <span class="red">m</span> <span class="blue">a</span> -> (<span class="blue">a</span> -> <span class="red">m</span> <span class="blue">b</span>) -> <span
+        class="red">m</span> <span class="blue">b</span>
+      <br>
       return :: <span class="blue">a</span> -> <span class="red">m</span> <span class="blue">a</span>
       <br>
-      join :: <span class="red">m</span> (<span class="red">m</span> <span class="blue">a</span>) -> <span
-        class="red">m</span> <span class="blue">a</span>
 
     </div>
     <p>
-      Similarly, comonads add structure to the input of the function; they tell us what's the <span
-        class="red">context</span> and what's the <span class="blue">focus</span>.
-      How do we decide which bit of information belongs where? Well, this is no different to deciding what counts as a
-      <em>side</em>-effect; perhaps I meant to put that bug there!?&#8230; it depends on the application.
+      Similarly, comonads add structure to the input of the function.
+      They tell us what's the <span class="red">context</span> and what's the <span class="blue">focus</span>.
+      The focus can be thought of as the data being acted on, e.g. a boid.
+      Whereas the context carries other resources that influence this action but are <em>not</em> influenced by it, e.g.
+      the rest of the flock.
+      Ultimately, the distinction will depend on the application as with monads.
     </p>
     <div class="code-line">
       f :: <span class="red">w</span> <span class="blue">a</span> -> b
     </div>
     <p>
-      As comonads are dual to monads they form a comonoid. Approximately means that we can split apart context into
-      nested contexts. To understand this dual notion of composition, it is best to think of our comonad as some sort of
-      container. Within this container there are lots of objects of type <span class="blue">a</span>, one of
-      which is the current focus. However, we could focus on any of them, and they will all have a different view of
-      their context. The <em>duplicate</em> function records this context from each possible perspective, creating a
-      container of containers:
-    </p>
-    <div class="code-line">
-      duplicate :: <span class="red">w</span> <span class="blue">a</span> ->
-      <span class="red">w</span> (<span class="red">w</span> <span class="blue">a</span>)
-    </div>
+      As you might expect, comonads must also satisfy analogous laws.
 
-    <p>
-      The corresponding notion of return (i.e. the unit) is when the function doesn't depend on it's context.
-      The <em>extract</em> function just retunns the focus:
+      In order to understand the dual notion of composition, we can think of a comonad as a container.
+      Within this container, there are many objects of type <span class="blue">a</span> that have some relation to each
+      other such as occupying neighbouring cells of a grid.
+      One of the elements, or positions, is the current focus.
+      However, we could focus on any of them, and they will all have a different view of
+      their context, e.g. a different set of neighbours.
+
+      Comonads must come equipped with a function for <em>extracting</em> the current focus while disregarding the
+      context.
+      And one for <em>extending</em> a context-aware operation on an element to the entire container.
+
     </p>
     <div class="code-line">
+      extend :: (<span class="red">w</span> <span class="blue">a</span> -> <span class="blue">b</span>) ->
+      <span class="red">w</span> <span class="blue">a</span> -> <span class="red">w</span> <span class="blue">b</span>
+      <br>
       extract :: <span class="red">w</span> <span class="blue">a</span> ->
       <span class="blue">a</span>
     </div>
+
+    <p>
+      Under this intuition, the laws roughly translate as:
+    <ul>
+      <li>Extracting the focus at every position in a container must equate to the original container</li>
+      <li>Extending a context-aware operation to a container and then extracting the focus must be the same as applying
+        the context-aware operation to the original container and its original focus.</li>
+      <li>And finally, the composition of extended context-aware operations should associate. </li>
+    </ul>
+    </p>
 
     <h2>
       The Flock Comonad
     </h2>
 
     <p>
-      Our three boid update functions have a natural focus and context; the current boid we're updating and it's
-      neighbours.
-      In other words, the flock is a <span class="red">container</span> full of
-      <span class="blue">boids</span> that is ripe for comonadification.
+      Our three boid update functions have a natural focus and context: the current boid we're updating, and the rest of
+      the flock.
+      We can think of a flock is a <span class="red">container</span> full of
+      <span class="blue">boids</span>.
+      The position of each boid is its coordinate, in say 2-dimensional space.
+      Interestingly though, as all space is relative, no boid is aware of its own location. Instead, boids are only
+      aware of their position relation to one another. The context, therefore, contains vectors from the focus to the
+      other
+      boids. At the origin, i.e. the zero vector (0, 0), the boid in focus may be found.
     </p>
 
     <div class="code-line">
-      type <span class="red">Flock</span> <span class="blue">a</span> = Map &reals;<sup><small>2</small></sup> <span
+      <span class="purple">type</span> <span class="red">Flock</span> <span class="blue">a</span> = Map (Int, Int) <span
         class="blue">a</span>
     </div>
 
     <p>
-      Concretely, we shall represent a flock as partial map between positions and boids.
-      The boid in focus will be in position (0, 0), which we shall assume is always inhabitated.
-    </p>
-
-    <p>
-      It's in the duplicate function where the real magic happens. As we just mentioned, each boid will have a different
-      view of the flock, and the duplicate function encodes this view. In terms of linear algebra we can think of each
-      boid being replaced by a copy of the flock except there has been a change of basis so that the focus, i.e. the
-      zero point, is that boid.
+      It's in the extension of context-aware operation the real magic happens.
+      For simplicity, let's consider extending the identity function, this will replace each boid with its view of the
+      flock.
+      However, our boids are rather egotistic and see themselves as the centre of the flock.
+      Their view will be inversely shifted by their own displacement vector, so they occupy the origin.
     </p>
 
     <figure>
@@ -170,13 +179,39 @@
     </figure>
 
     <p>
-      In Haskell this means we are constructing a new map with the same keys but where each element is a copy of the
-      flock with the keys shfited by the inverse of v:
+      Extending more intresting operations corresponds to applying a context-aware operation to each of the inner flocks
+      of this visualisation.
     </p>
 
-    <div class="code-line" style="font-size: 1.25em;">
-      duplicate f = mapWithKey (\v _ -> mapKey (subtract v) f) f
+    <h2>Comonadic Boids</h2>
+
+    <p>
+      What is the payoff from all this book-keeping?
+      We can now define the forces that act upon boids, in a natural manner - one boid at a time, without worrying about how this affects the flock overall.
+      This separation of concerns highlights the fact that self-organisation is an emergent property.
+      Consider the implementation of the cohesion force for example:
+    </p>
+
+    <div class="code-line">
+      <span class="green">-- NOT: Flock Boid -> Flock Boid </span>
+      <br>
+      separate :: <span class="red">Flock</span> <span class="blue">Boid</span> -> <span class="blue">Boid</span>
+      <br>
+      separate flock =
+      <br>
+      &nbsp; <span class="purple">let</span> boid = extract flock
+      <br>
+      &nbsp; &nbsp; &nbsp; centre = foldrWithKey (\v _ acc -> v + acc) 0 flock
+      <br>
+      &nbsp; &thinsp; <span class="purple">in</span> steerTo boid centre
+
     </div>
+
+    <p>
+      Even the type of this function hints that this is a force applied to boids rather than an arbitrary operation on flocks.
+      Which could be anything from adding a hundred extra boids to eliminate those which are too far from the origin.
+      In summary, the right representation of data should take into consideration the relevant operations. Catering to these can make code more lucid and consequently easier to maintain.
+    </p>
 
     <p>Check out the full code <a>here!</a>
     </p>
