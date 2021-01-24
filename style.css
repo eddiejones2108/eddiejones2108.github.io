@@ -82,6 +82,17 @@ main {
   padding: 0 40px;
 }
 
+@media only screen and (max-width: 600px) {
+  .post-description {
+    margin: 0;
+  }
+
+  .main-list {
+    padding-right: 0;
+    padding-left: 20px;
+  }
+}
+
 summary {
   margin: .5em 0;
   font-size: 1.5em;
@@ -252,7 +263,7 @@ legend {
 figure {
   position: relative;
   margin: 0 auto;
-  width: 50%;
+  width: 75%;
 }
 
 img {
@@ -260,22 +271,16 @@ img {
   object-fit: contain;
 }
 
-.author {
-  float: none;
-  display: block;
-  padding-left: 0em;
-  padding-bottom: 1em;
-}
-
 figcaption {
-  padding: 2em;
   position: absolute;
+  padding: 5%;
   top: 0;
   left: 0;
-  width: calc(100%-8em);
-  height: calc(100% - 4em);
-  background-color: var(--white);
+  width: 90%;
+  height: 90%;
+  text-align: center;
   opacity: 0;
+  background-color: var(--white);
   font-weight: bolder;
   font-size: smaller;
 }
@@ -298,11 +303,11 @@ figcaption:hover {
 }
 
 .code-line {
-  padding-left: 2em;
-  padding-top: .5em;
-  padding-bottom: .5em;
+  padding: .5em 2em;
+  white-space: nowrap;
   text-align: left;
   font-size: 1.25em;
+  overflow-x: auto;
 }
 
 

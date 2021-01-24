@@ -38,11 +38,8 @@
     <figure>
       <img src="img/geograph-2687912-by-Walter-Baxter.jpg" alt="A murmuration of starlings at Gretna, by Walter Baxter">
       <figcaption>
-        <div class="author">
-          <a href="https://www.geograph.org.uk/profile/6638">Walter Baxter</a>
-        </div>
-        <a href="https://www.geograph.org.uk/photo/2687912">A murmuration of starlings at Gretna</a>, Monday, 7
-        November, 2011
+        <a href="https://www.geograph.org.uk/photo/2687912">A murmuration of starlings at Gretna</a>,
+        <a href="https://www.geograph.org.uk/profile/6638">Walter Baxter</a>
         <br>
         <br>
         Available for reuse under the
@@ -52,8 +49,7 @@
 
     <p>
       It's not just biologists that find the sight fascinating.
-      There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours,
-      particularly in optimisation.
+      There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours with a variety of applications.
     </p>
 
     <p>
@@ -94,8 +90,8 @@
       Monadic functions must behave somewhat like pure functions in that composition is associative and has an identity.
     </p>
     <div class="code-line">
-      (>>=) :: <span class="red">m</span> <span class="blue">a</span> -> (<span class="blue">a</span> -> <span class="red">m</span> <span class="blue">b</span>) -> <span
-        class="red">m</span> <span class="blue">b</span>
+      (>>=) :: <span class="red">m</span> <span class="blue">a</span> -> (<span class="blue">a</span> -> <span
+        class="red">m</span> <span class="blue">b</span>) -> <span class="red">m</span> <span class="blue">b</span>
       <br>
       return :: <span class="blue">a</span> -> <span class="red">m</span> <span class="blue">a</span>
       <br>
@@ -124,7 +120,7 @@
 
       Comonads must come equipped with a function for <em>extracting</em> the current focus while disregarding the
       context.
-      And one for <em>extending</em> a context-aware operation on an element to the entire container.
+      And one for <em>extending</em> a context-aware operation on elements to the entire container.
 
     </p>
     <div class="code-line">
@@ -156,7 +152,7 @@
       <span class="blue">boids</span>.
       The position of each boid is its coordinate, in say 2-dimensional space.
       Interestingly though, as all space is relative, no boid is aware of its own location. Instead, boids are only
-      aware of their position relation to one another. The context, therefore, contains vectors from the focus to the
+      aware of their position relative to one another. The context, therefore, contains vectors from the focus to the
       other
       boids. At the origin, i.e. the zero vector (0, 0), the boid in focus may be found.
     </p>
@@ -187,7 +183,8 @@
 
     <p>
       What is the payoff from all this book-keeping?
-      We can now define the forces that act upon boids, in a natural manner - one boid at a time, without worrying about how this affects the flock overall.
+      We can now define the forces that act upon boids, in a natural manner - one boid at a time, without worrying about
+      how this affects the flock overall.
       This separation of concerns highlights the fact that self-organisation is an emergent property.
       Consider the implementation of the cohesion force for example:
     </p>
@@ -208,9 +205,11 @@
     </div>
 
     <p>
-      Even the type of this function hints that this is a force applied to boids rather than an arbitrary operation on flocks.
+      Even the type of this function hints that this is a force applied to boids rather than an arbitrary operation on
+      flocks.
       Which could be anything from adding a hundred extra boids to eliminate those which are too far from the origin.
-      In summary, the right representation of data should take into consideration the relevant operations. Catering to these can make code more lucid and consequently easier to maintain.
+      In summary, the right representation of data should take into consideration the relevant operations and obscure dangerous ones.
+      Catering to these can make code more lucid and consequently easier to maintain.
     </p>
 
     <p>Check out the full code <a>here!</a>
