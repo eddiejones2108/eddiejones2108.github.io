@@ -82,7 +82,7 @@ main {
   padding: 0 40px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 650px) {
   .post-description {
     margin: 0;
   }
@@ -306,7 +306,7 @@ figcaption:hover {
   padding: .5em 2em;
   white-space: nowrap;
   text-align: left;
-  font-size: 1.25em;
+  font-weight: bolder;
   overflow-x: auto;
 }
 

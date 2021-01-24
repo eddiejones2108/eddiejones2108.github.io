@@ -160,6 +160,20 @@
     <div class="code-line">
       <span class="purple">type</span> <span class="red">Flock</span> <span class="blue">a</span> = Map (Int, Int) <span
         class="blue">a</span>
+      <br>
+      <br>
+      extract :: <span class="red">Flock</span> <span class="blue">a</span> ->
+      <span class="blue">a</span>
+      <br>
+      extract flock = flock ! (0, 0)
+      <br>
+      <br>
+      <span class="green">-- duplicate = extend id</span>
+      <br>
+      duplicate :: <span class="red">Flock</span> <span class="blue">a</span> ->
+      <span class="red">Flock</span> (<span class="red">Flock</span> <span class="blue">a</span>)
+      <br>
+      duplicate flock = mapWithKey (\v _ -> mapWithKeys (- v) flock) flock
     </div>
 
     <p>
@@ -192,16 +206,17 @@
     <div class="code-line">
       <span class="green">-- NOT: Flock Boid -> Flock Boid </span>
       <br>
-      separate :: <span class="red">Flock</span> <span class="blue">Boid</span> -> <span class="blue">Boid</span>
+      cohesion :: <span class="red">Flock</span> <span class="blue">Boid</span> -> <span class="blue">Boid</span>
       <br>
-      separate flock =
+      cohesion flock =
       <br>
       &nbsp; <span class="purple">let</span> boid = extract flock
       <br>
-      &nbsp; &nbsp; &nbsp; centre = foldrWithKey (\v _ acc -> v + acc) 0 flock
+      &nbsp; &nbsp; &nbsp; sum = foldrWithKey (\v _ k -> v + k) 0 flock
       <br>
-      &nbsp; &thinsp; <span class="purple">in</span> steerTo boid centre
-
+      &nbsp; &nbsp; &nbsp; centre = scale (recip (size flock)) sum
+      <br>
+      &nbsp; &thinsp; <span class="purple">in</span> seek boid centre
     </div>
 
     <p>
@@ -212,7 +227,7 @@
       Catering to these can make code more lucid and consequently easier to maintain.
     </p>
 
-    <p>Check out the full code <a>here!</a>
+    <p>Check out the full code <a href="https://github.com/ec-jones/doodles/blob/master/src/Flock.hs">here!</a>
     </p>
   </main>
 </body>
