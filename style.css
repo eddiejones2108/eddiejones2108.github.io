@@ -82,24 +82,25 @@ main {
   padding: 0 40px;
 }
 
-summary {
-  margin: .5em 0;
-  font-size: 1.5em;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-}
-
 summary a {
   text-decoration: none;
+}
+
+details[open] summary~* {
+  animation: open 0.3s ease-in-out;
 }
 
 details summary::-webkit-details-marker {
   display: none;
 }
 
-details[open] summary~* {
-  animation: open 0.3s ease-in-out;
+details summary {
+  margin: .5em 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  outline: none;
+  cursor: pointer;
+  list-style: none;
 }
 
 @keyframes open {
