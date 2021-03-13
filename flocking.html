@@ -49,13 +49,14 @@
 
     <p>
       It's not just biologists that find the sight fascinating.
-      There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours with a variety of applications.
+      There is a whole field of computer science dedicated to abstracting and replicating these emergent behaviours with
+      a variety of applications.
     </p>
 
     <p>
       <a href="http://www.red3d.com/cwr/boids/">Boids</a> was one of the first algorithms designed to mimic flocking
       behaviour.
-      Each boid (read bird) is governed by three simple forces:
+      Each boid is governed by three simple forces:
     <ul>
       <li>Separation: try not to crash</li>
       <li>Cohesion: stick together</li>
@@ -75,7 +76,7 @@
     <p>
       Monads have been widely adopted in the functional programming community, but their dual, <em>co</em>-monads, are
       sadly not so popular &#128542;
-      Although monads play a broad and important role in category theory. For a programmer they are essentially a
+      Although monads play a broad and important role in category theory, for a programmer they are essentially a
       convention for adding structure to the output of a function.
       In particular, they allows us to clearly delineate its <span class="blue">result</span> and <span
         class="red">side-effects</span>:
@@ -148,7 +149,7 @@
     <p>
       Our three boid update functions have a natural focus and context: the current boid we're updating, and the rest of
       the flock.
-      We can think of a flock is a <span class="red">container</span> full of
+      We can think of a flock as a <span class="red">container</span> full of
       <span class="blue">boids</span>.
       The position of each boid is its coordinate, in say 2-dimensional space.
       Interestingly though, as all space is relative, no boid is aware of its own location. Instead, boids are only
@@ -190,7 +191,7 @@
 
     <p>
       Extending more intresting operations corresponds to applying a context-aware operation to each of the inner flocks
-      of this visualisation.
+      of this visualisation. That is: extend f = fmap f . duplicate.
     </p>
 
     <h2>Comonadic Boids</h2>
@@ -221,9 +222,9 @@
 
     <p>
       Even the type of this function hints that this is a force applied to boids rather than an arbitrary operation on
-      flocks.
-      Which could be anything from adding a hundred extra boids to eliminate those which are too far from the origin.
-      In summary, the right representation of data should take into consideration the relevant operations and obscure dangerous ones.
+      flocks. It is not possible, for example, to add a boid to the flock in this function. In
+      summary, the right representation of data should take into consideration the relevant operations and obscure
+      dangerous ones.
       Catering to these can make code more lucid and consequently easier to maintain.
     </p>
 
