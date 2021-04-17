@@ -75,9 +75,8 @@
 
     <p>
       Monads have been widely adopted in the functional programming community, but their dual, <em>co</em>-monads, are
-      sadly not so popular &#128542;
-      Although monads play a broad and important role in category theory, for a programmer they are essentially a
-      convention for adding structure to the output of a function.
+      sadly not so popular &#128542; Although monads play a broad and important role in category theory, for a
+      programmer they are essentially a convention for adding structure to the output of a function.
       In particular, they allows us to clearly delineate its <span class="blue">result</span> and <span
         class="red">side-effects</span>:
     </p>
@@ -87,8 +86,8 @@
     <p>
       Of course, this convention is meaningless without laws.
       For monads, the laws concern the composition of effectful functions and the ability to lift pure functions into
-      this richer context.
-      Monadic functions must behave somewhat like pure functions in that composition is associative and has an identity.
+      this richer context. Monadic functions must behave somewhat like pure functions in that composition is associative
+      and has an identity.
     </p>
     <div class="code-line">
       (>>=) :: <span class="red">m</span> <span class="blue">a</span> -> (<span class="blue">a</span> -> <span
@@ -99,12 +98,11 @@
 
     </div>
     <p>
-      Similarly, comonads add structure to the input of the function.
-      They tell us what's the <span class="red">context</span> and what's the <span class="blue">focus</span>.
-      The focus can be thought of as the data being acted on, e.g. a boid.
-      Whereas the context carries other resources that influence this action but are <em>not</em> influenced by it, e.g.
-      the rest of the flock.
-      Ultimately, the distinction will depend on the application as with monads.
+      Similarly, comonads add structure to the input of the function. They tell us what's the <span
+        class="red">context</span> and what's the <span class="blue">focus</span>. The focus can be thought of as the
+      data being acted on, e.g. a boid. Whereas the context carries other resources that influence this action but are
+      <em>not</em> influenced by it, e.g. the rest of the flock. Ultimately, the distinction will depend on the
+      application as with monads.
     </p>
     <div class="code-line">
       f :: <span class="red">w</span> <span class="blue">a</span> -> b
@@ -114,14 +112,12 @@
 
       In order to understand the dual notion of composition, we can think of a comonad as a container.
       Within this container, there are many objects of type <span class="blue">a</span> that have some relation to each
-      other such as occupying neighbouring cells of a grid.
-      One of the elements, or positions, is the current focus.
-      However, we could focus on any of them, and they will all have a different view of
-      their context, e.g. a different set of neighbours.
+      other such as occupying neighbouring cells of a grid. One of the elements, or positions, is the current focus.
+      However, we could focus on any of them, and they will all have a different view of their context, e.g. a different
+      set of neighbours.
 
       Comonads must come equipped with a function for <em>extracting</em> the current focus while disregarding the
-      context.
-      And one for <em>extending</em> a context-aware operation on elements to the entire container.
+      context. And one for <em>extending</em> a context-aware operation on elements to the entire container.
 
     </p>
     <div class="code-line">
@@ -136,9 +132,19 @@
       Under this intuition, the laws roughly translate as:
     <ul>
       <li>Extracting the focus at every position in a container must equate to the original container</li>
+      <div class="code-line">
+        extend extract = id
+      </div>
       <li>Extending a context-aware operation to a container and then extracting the focus must be the same as applying
-        the context-aware operation to the original container and its original focus.</li>
+        the context-aware operation to the original container with its original focus. In other words, extend does
+        change which element is in focus.</li>
+      <div class="code-line">
+        extract . extend f = f
+      </div>
       <li>And finally, the composition of extended context-aware operations should associate. </li>
+      <div class="code-line">
+        extend f . extend g = extend (f . extend g)
+      </div>
     </ul>
     </p>
 
@@ -148,14 +154,11 @@
 
     <p>
       Our three boid update functions have a natural focus and context: the current boid we're updating, and the rest of
-      the flock.
-      We can think of a flock as a <span class="red">container</span> full of
-      <span class="blue">boids</span>.
-      The position of each boid is its coordinate, in say 2-dimensional space.
+      the flock. We can think of a flock as a <span class="red">container</span> full of
+      <span class="blue">boids</span>. The position of each boid is its coordinate, in say 2-dimensional space.
       Interestingly though, as all space is relative, no boid is aware of its own location. Instead, boids are only
       aware of their position relative to one another. The context, therefore, contains vectors from the focus to the
-      other
-      boids. At the origin, i.e. the zero vector (0, 0), the boid in focus may be found.
+      other boids. At the origin, i.e. the zero vector (0, 0), the boid in focus may be found.
     </p>
 
     <div class="code-line">
@@ -182,7 +185,8 @@
       For simplicity, let's consider extending the identity function, this will replace each boid with its view of the
       flock.
       However, our boids are rather egotistic and see themselves as the centre of the flock.
-      Their view will be inversely shifted by their own displacement vector, so they occupy the origin.
+      Hence, their view of the flock will be inversely shifted by their own displacement vector so they occupy the
+      origin.
     </p>
 
     <figure>
@@ -191,8 +195,12 @@
 
     <p>
       Extending more intresting operations corresponds to applying a context-aware operation to each of the inner flocks
-      of this visualisation. That is: extend f = fmap f . duplicate.
+      of this visualisation. That is:
     </p>
+
+    <div class="code-line">
+      extend f = fmap f . duplicate
+    </div>
 
     <h2>Comonadic Boids</h2>
 
@@ -221,11 +229,8 @@
     </div>
 
     <p>
-      Even the type of this function hints that this is a force applied to boids rather than an arbitrary operation on
-      flocks. It is not possible, for example, to add a boid to the flock in this function. In
-      summary, the right representation of data should take into consideration the relevant operations and obscure
-      dangerous ones.
-      Catering to these can make code more lucid and consequently easier to maintain.
+      Even the type of this function hints that it is a force applied to boids rather than an arbitrary operation on
+      flocks. It is not possible, for example, to add a boid to the flock with this type. Although type-driven development is somewhat of an aesthetic concern, I do believe that a sprinkling of abstraction can lead to more lucid code that is consequently easier to maintain. Ultimately the right representation of data should take into consideration the relevant operations and obscure dangerous or unintended ones; this is often achievable in an elegant manner by appealing to mathematical structures.
     </p>
 
     <p>Check out the full code <a href="https://github.com/ec-jones/doodles/blob/master/src/Flock.hs">here!</a>

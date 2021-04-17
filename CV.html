@@ -50,6 +50,10 @@
         <input type="radio" value="edu" name="filters" />
         <span>Education</span>
       </label>
+      <label>
+        <input type="radio" value="misc" name="filters" />
+        <span>Misc.</span>
+      </label>
     </fieldset>
 
     <div topic="pub" class="timeline-item" date-is="Jan 2021">
@@ -78,17 +82,22 @@
       <p>
         Perhaps the most rewarding teaching experience I have had to date is as a programme-level teaching assistant.
         This new unit is intended to cross module boundaries and encourage the students to think outside the box.
-        It has also been enjoyable to lead more flexible tutorial-like sessions where it is possible to build a rapport with the students.
+        It has also been enjoyable to lead more flexible tutorial-like sessions where it is possible to build a rapport
+        with the students.
       </p>
       <p>
-        Again this year saw an increase in responsibility &mdash; I become lead teaching assistant for the Types &amp; &lambda;-Calculus unit as well as producing problem sheets for programme-level tutorial sessions (on bisimulation and <a href = "http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/">seemingly impossible functional programs</a>).
+        Again this year saw an increase in responsibility &mdash; I become lead teaching assistant for the Types &amp;
+        &lambda;-Calculus unit as well as producing problem sheets for programme-level tutorial sessions (on
+        bisimulation and <a href="http://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/">seemingly
+          impossible functional programs</a>).
       </p>
     </div>
 
     <div topic="teach" class="timeline-item" date-is="October 2019 - June 2020">
       <h2>Teaching Assistant </h2>
       <p>
-        This year I took on a more senior role as lead teaching assistant for the Functional Programming unit in addition to assistanting with:
+        This year I took on a more senior role as lead teaching assistant for the Functional Programming unit in
+        addition to assistanting with:
 
       <ul>
         <li> Types &amp; &lambda;-Calculus </li>
@@ -174,28 +183,42 @@
       </p>
     </div>
 
-
     <div topic="edu" class="timeline-item" date-is="<=2016">
+      <h2>Swanmore College of Technology</h2>
+
+      <p>
+        13 GCSE incl. Maths, Sciences, English, and French
+      </p>
+    </div>
+
+    <div topic="misc" class="timeline-item" date-is="About Me" hidden=true>
+      <p>
+        Apart from computer science, I really enjoy running, walking, or cyclic - basically any activity that involved
+        cardio or time in nature.
+        When feeling less active, I tend to read a lot on a range of genres - from theology to sci-fi.
+      </p>
       <ul>
-        <li>13 GCSE incl. Maths, Sciences, English, and French</li>
         <li>Grade 8 Saxophone</li>
         <li>2nd Dan black belt Taekwondo</li>
       </ul>
     </div>
   </main>
 
-
   <script>
     $('input[type="radio"][name="filters"]').change(function () {
       $('.timeline-item').hide();
       switch ($(this).attr("value")) {
-        case "all": $('.timeline-item').show();
+        case "all":
+          $('.timeline-item').show();
+          $('.timeline-item[topic *= "misc"]').hide();
           break;
         case "pub": $('.timeline-item[topic *= "pub"]').show();
           break;
         case "teach": $('.timeline-item[topic *= "teach"]').show();
           break;
         case "edu": $('.timeline-item[topic *= "edu"]').show();
+          break;
+        case "misc": $('.timeline-item[topic *= "misc"]').show();
           break;
       }
     });
