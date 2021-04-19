@@ -136,8 +136,9 @@
         extend extract = id
       </div>
       <li>Extending a context-aware operation to a container and then extracting the focus must be the same as applying
-        the context-aware operation to the original container with its original focus. In other words, extend does
-        change which element is in focus.</li>
+        the context-aware operation to the original container with its original focus. In other words, extend does not
+        change which element is in focus.
+      </li>
       <div class="code-line">
         extract . extend f = f
       </div>
@@ -177,7 +178,7 @@
       duplicate :: <span class="red">Flock</span> <span class="blue">a</span> ->
       <span class="red">Flock</span> (<span class="red">Flock</span> <span class="blue">a</span>)
       <br>
-      duplicate flock = mapWithKey (\v _ -> mapWithKeys (- v) flock) flock
+      duplicate flock = mapWithKey (\v _ -> mapKeys (- v) flock) flock
     </div>
 
     <p>
@@ -230,7 +231,11 @@
 
     <p>
       Even the type of this function hints that it is a force applied to boids rather than an arbitrary operation on
-      flocks. It is not possible, for example, to add a boid to the flock with this type. Although type-driven development is somewhat of an aesthetic concern, I do believe that a sprinkling of abstraction can lead to more lucid code that is consequently easier to maintain. Ultimately the right representation of data should take into consideration the relevant operations and obscure dangerous or unintended ones; this is often achievable in an elegant manner by appealing to mathematical structures.
+      flocks. It is not possible, for example, to add a boid to the flock with this type. Although type-driven
+      development is somewhat of an aesthetic concern, I do believe that a sprinkling of abstraction can lead to more
+      lucid code that is consequently easier to maintain. Ultimately the right representation of data should take into
+      consideration the relevant operations and obscure dangerous or unintended ones; this is often achievable in an
+      elegant manner by appealing to mathematical structures.
     </p>
 
     <p>Check out the full code <a href="https://github.com/ec-jones/doodles/blob/master/src/Flock.hs">here!</a>
