@@ -29,6 +29,10 @@
   </header>
 
   <main>
+    <h2>
+      Flocking Behaviour
+    </h2>
+
     <p>
       Nature's ability to organise itself is not just impressive but often beautiful too.
       When a group of starlings flock together, they create a mesmerising acrobatic performance.
@@ -99,7 +103,8 @@
     </div>
     <p>
       Similarly, comonads add structure to the input of the function. They tell us what's the <span
-        class="red">context</span> and what's the <span class="blue">focus</span>. The focus can be thought of as the
+        class="red">context</span> and what's the <span class="blue">focus</span>. The focus can be thought of as
+      the
       data being acted on, e.g. a boid. Whereas the context carries other resources that influence this action but are
       <em>not</em> influenced by it, e.g. the rest of the flock. Ultimately, the distinction will depend on the
       application as with monads.
@@ -206,11 +211,10 @@
     <h2>Comonadic Boids</h2>
 
     <p>
-      What is the payoff from all this book-keeping?
-      We can now define the forces that act upon boids, in a natural manner - one boid at a time, without worrying about
-      how this affects the flock overall.
-      This separation of concerns highlights the fact that self-organisation is an emergent property.
-      Consider the implementation of the cohesion force for example:
+      What is the payoff from all this book-keeping? We can now define the forces that act upon boids, in a natural
+      manner - one boid at a time, without worrying about how this affects the flock overall. This separation of
+      concerns highlights the fact that self-organisation is an emergent property. Consider the implementation of the
+      cohesion force for example:
     </p>
 
     <div class="code-line">

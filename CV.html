@@ -39,6 +39,10 @@
         <span>All</span>
       </label>
       <label>
+        <input type="radio" value="misc" name="filters" />
+        <span>About Me</span>
+      </label>
+      <label>
         <input type="radio" value="pub" name="filters" />
         <span>Publications &amp; Research</span>
       </label>
@@ -50,20 +54,29 @@
         <input type="radio" value="edu" name="filters" />
         <span>Education</span>
       </label>
-      <label>
-        <input type="radio" value="misc" name="filters" />
-        <span>Misc.</span>
-      </label>
     </fieldset>
+
+    <div topic="misc" class="timeline-item" date-is="About Me">
+      <!-- hidden=true -->
+      <p>
+        Apart from computer science, I really enjoy running, walking, and cycling - basically any activity that involves
+        cardio or spending time in nature! When feeling less active, I tend to read a lot, anything from theology to
+        sci-fi.
+      </p>
+      <ul>
+        <li>Grade 8 Saxophone</li>
+        <li>2nd Dan black belt Taekwondo</li>
+        <li>NCS - National Citizen Service</li>
+      </ul>
+    </div>
 
     <div topic="pub" class="timeline-item" date-is="Jan 2021">
       <h2>Intensional Datatype Refinements &dash; POPL21</h2>
       <p>
         In <a href="https://arxiv.org/abs/2008.01452">this paper</a>, we present a higher-order program analysis that
-        detects any pattern-matching errors.
-        More importantly, however, unlike previous approaches, we tackle the issue of performance.
-        By uncovering the right restrictions, we create a <em>compositional</em> analysis that is ultimately linear in
-        the size of the program!
+        detects any pattern-matching errors. More importantly, however, unlike previous approaches, we tackle the issue
+        of performance. By uncovering the right restrictions, we create a <em>compositional</em> analysis that is
+        ultimately linear in the size of the program!
       </p>
 
       <p>
@@ -72,8 +85,7 @@
       </p>
 
       <p>
-        My presentation on the paper is available <a
-          href="https://www.youtube.com/watch?v=BkqoQfAWYTo">here</a>.
+        My presentation on the paper is available <a href="https://www.youtube.com/watch?v=BkqoQfAWYTo">here</a>.
       </p>
     </div>
 
@@ -117,9 +129,9 @@
       </p>
       <p>
         I can, however, contrast the experience to some advice which I thankfully ignored: doing joint honours will make
-        you a jack of all trades and a master of none.
-        Quite the opposite, I have found that fluency in mathematical thinking has given me the analytical skills
-        necessary to shed new light on the practical challenges faced in computer science.
+        you a jack of all trades and a master of none. Quite the opposite, I have found that fluency in mathematical
+        thinking has given me the analytical skills necessary to shed new light on the practical challenges faced in
+        computer science.
       </p>
     </div>
 
@@ -128,17 +140,15 @@
       <p>
         My undergraduate dissertation focused on a different type of language - natural languages.
         And in particular, the remarkable way in which huge populations have agreed upon coherent systems for
-        communication.
-        It received a first-class mark of 87&#37;.
+        communication. It received a first-class mark of 87&#37;.
       </p>
       <p>
         I used a <a href="https://www.pnas.org/content/109/18/6819.full">model</a> of language acquisition to
         investigate how social <a href="https://en.wikipedia.org/wiki/Small-world_network">networks</a> influence the
-        propagation of cultural symbols through a series of simulations.
-        The most interesting result was that agents' propensity to distance themselves in response to a misunderstanding
-        was a more a significant factor than the desire to connect with similar agents in the formation of homogenous
-        communities.
-        In the conclusion, I discussed the possible light this sheds on echo chambers.
+        propagation of cultural symbols through a series of simulations. The most interesting result was that agents'
+        propensity to distance themselves in response to a misunderstanding was a more a significant factor than the
+        desire to connect with similar agents in the formation of homogenous communities. In the conclusion, I discussed
+        the possible light this sheds on echo chambers.
       </p>
     </div>
 
@@ -146,8 +156,7 @@
       <h2>Teaching Assistant </h2>
       <p>
         I have always enjoyed conveying my passions for subjects, and so I was delighted to get some experience as a
-        teaching assistant.
-        Across the following units, I lead problem classes and helped the students in labs.
+        teaching assistant. Across the following units, I lead problem classes and helped the students in labs.
       </p>
       <ul>
         <li> Functional Programming</li>
@@ -164,8 +173,7 @@
       <h2>Applied Optimisation Research Internship</h2>
       <p>
         This project considered the problem of designing a car park layout for a given space that maximised the number
-        of cars.
-        It involved a satisfying mix of calculus, geometry, and simulation (mostly in MATLAB).
+        of cars. It involved a satisfying mix of calculus, geometry, and simulation (mostly in MATLAB).
       </p>
     </div>
 
@@ -188,18 +196,6 @@
         13 GCSE incl. Maths, Sciences, English, and French
       </p>
     </div>
-
-    <div topic="misc" class="timeline-item" date-is="About Me" hidden=true>
-      <p>
-        Apart from computer science, I really enjoy running, walking, or cyclic - basically any activity that involves
-        cardio or spending time in nature.
-        When feeling less active, I tend to read a lot on a range of genres - from theology to sci-fi.
-      </p>
-      <ul>
-        <li>Grade 8 Saxophone</li>
-        <li>2nd Dan black belt Taekwondo</li>
-      </ul>
-    </div>
   </main>
 
   <script>
@@ -208,7 +204,7 @@
       switch ($(this).attr("value")) {
         case "all":
           $('.timeline-item').show();
-          $('.timeline-item[topic *= "misc"]').hide();
+          // $('.timeline-item[topic *= "misc"]').hide();
           break;
         case "pub": $('.timeline-item[topic *= "pub"]').show();
           break;
