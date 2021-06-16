@@ -194,17 +194,17 @@
       &nbsp; <span class="blue">P</span> :: <span class="red">OpSort</span>
       <br>
       <br>
-      <span class="purple">type</span> <span class="red">StateI</span> :: <span class="red">Type</span> ->
+      <span class="purple">type</span> <span class="red">State</span> :: <span class="red">Type</span> ->
       <span class="red">OpSort</span> -> <span class="red">Type</span> -> <span class="red">Type</span>
       <br>
-      <span class="purple">data</span> <span class="red">StateI</span> s i a <span class="purple">where</span>
+      <span class="purple">data</span> <span class="red">State</span> s i a <span class="purple">where</span>
       <br>
-      &nbsp; <span class="blue">Get</span> :: <span class="red">StateI</span> 'G s s
+      &nbsp; <span class="blue">Get</span> :: <span class="red">State</span> s 'G s
       <br>
-      &nbsp; <span class="blue">Put</span> :: s -> <span class="red">StateI</span> 'P s ()
+      &nbsp; <span class="blue">Put</span> :: s -> <span class="red">State</span> s 'P ()
       <br>
       <br>
-      modify :: <span class="red">FreeI</span> (<span class="red">StateI</span> s) '['<span class="blue">G</span>,
+      modify :: <span class="red">FreeI</span> (<span class="red">State</span> s) '['<span class="blue">G</span>,
       '<span class="blue">P</span>] ()
       <br>
       modify = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
