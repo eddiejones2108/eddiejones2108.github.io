@@ -67,9 +67,9 @@
       <br>
       <span class="purple">data</span> <span class="red">List</span> n a <span class="purple">where</span>
       <br>
-      &nbsp; <span class="blue">Nil</span> :: <span class="red">ListI</span> 0 a
+      &nbsp; <span class="blue">Nil</span> :: <span class="red">List</span> 0 a
       <br>
-      &nbsp; <span class="blue">Cons</span> :: a -> <span class="red">List</span> n a -> <span class="red">ListI</span>
+      &nbsp; <span class="blue">Cons</span> :: a -> <span class="red">List</span> n a -> <span class="red">List</span>
       (n + 1) a
     </div>
 
@@ -118,7 +118,9 @@
       This flexibility allows the design of more composable systems.
     </p>
     <p>
-      At the heart of algebraic effect systems is the free monad:
+      At the heart of algebraic effect systems is the free monad, defined as a generalisation of trees with leaves of
+      the return type and branches shaped by some signature. While the signature is often assumed to be a functor, for
+      which this tree interpretation is most visceral, we will instead focus on the following definition:
     </p>
 
     <div class="code-line">
@@ -198,8 +200,8 @@
       &nbsp; <span class="blue">Put</span> :: s -> <span class="red">StateI</span> 'P s ()
       <br>
       <br>
-      addOne :: <span class="red">FreeI</span> (<span class="red">StateI</span> s) '[<span class="blue">'G</span>,
-      <span class="blue">'P</span>] ()
+      addOne :: <span class="red">FreeI</span> (<span class="red">StateI</span> s) '['<span class="blue">G</span>,
+      '<span class="blue">P</span>] ()
       <br>
       addOne = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
       1)
@@ -246,25 +248,142 @@
       '<span class="blue">P</span>? Well the remaining language is '<span class="blue">Empty</span> as no string
       following a '<span class="blue">P</span> will satisfy our protocol (not even the empty string
       '<span class="blue">Epsilon</span>). This construction is called the Brzozowski derivative and will be key to
-      ensuring the type of the overall tree (i.e. the protocol) dictates the type of the subtree (i.e. the protocol's
-      derivative with respect to the operations encountered so far).
+      ensuring the type of the overall tree, that is our protocol, can effectively dictate the type of the subtrees,
+      which will be the derivative with respect to the operations encountered so far.
     </p>
 
     <p>
-
+      The Brzozowski derivative is defined by two type families (i.e. type-level functions). The first
+      <span class="red">Nu</span>, read <q>nullable</q>, checks whether the language of a regular expression contains
+      the empty string. It returns '<span class="blue">Epsilon</span> if this is the case and
+      '<span class="blue">Empty</span> otherwise.
+      As we wish to minimise the amount of equational reasoning the compile has to do, and in fact, we won't specify any
+      of the equational laws of regular expressions, this function also explicitly shortcuts the result with the
+      <span class="red">Force</span> type family, rather than the more usual presentation where the output is a regular
+      expression that is merely equivalent to '<span class="blue">Epsilon</span> or '<span class="blue">Empty</span>
+      up-to some equations.
     </p>
+
+    <div class="code-line">
+      <span class="green">-- Check whether a regular expression permits the empty string.</span>
+      <br>
+      <span class="purple">type</span> <span class="red">Nu</span> :: <span class="red">Regex</span> i ->
+      <span class="red">Regex</span> i
+      <br>
+      <span class="purple">type</span> <span class="purple">family</span> <span class="red">Nu</span> r
+      <span class="purple">where</span>
+      <br>
+      &nbsp; <span class="red">Nu</span> '<span class="blue">Empty</span> = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Nu</span> '<span class="blue">Epsilon</span> = '<span class="blue">Epsilon</span>
+      <br>
+      &nbsp; <span class="red">Nu</span> ('<span class="blue">Unit</span> i) = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Nu</span> (r '<span class="blue">:.</span> s) = <span class="red">Force</span>
+      (<span class="red">Nu</span> r '<span class="blue">:&&</span> <span class="red">Nu</span> s)
+      <br>
+      &nbsp; <span class="red">Nu</span> (r '<span class="blue">:&&</span> s) = <span class="red">Force</span>
+      (<span class="red">Nu</span> r '<span class="blue">:&&</span> <span class="red">Nu</span> s)
+      <br>
+      &nbsp; <span class="red">Nu</span> (r '<span class="blue">:||</span> s) = <span class="red">Force</span>
+      (<span class="red">Nu</span> r '<span class="blue">:||</span> <span class="red">Nu</span> s)
+      <br>
+      &nbsp; <span class="red">Nu</span> ('<span class="blue">Star</span> r) = '<span class="blue">Epsilon</span>
+      <br>
+      <br>
+      <span class="green">-- Simplify the result.</span>
+      <br>
+      <span class="purple">type</span> <span class="red">Force</span> :: <span class="red">Regex</span> i ->
+      <span class="red">Regex</span> i
+      <br>
+      <span class="purple">type</span> <span class="purple">family</span> <span class="red">Force</span> r
+      <span class="purple">where</span>
+      <br>
+      &nbsp; <span class="red">Force</span> '<span class="blue">Empty</span> = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Force</span> '<span class="blue">Epsilon</span> = '<span class="blue">Epsilon</span>
+      <br>
+      &nbsp; <span class="red">Force</span> ('<span class="blue">Empty</span> '<span class="blue">:&&</span> _) =
+      '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Force</span> (_ '<span class="blue">:&&</span> '<span class="blue">Empty</span>) =
+      '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Force</span> ('<span class="blue">Epsilon</span> '<span class="blue">:&&</span> s) =
+      <span class="red">Force</span> s
+      <br>
+      &nbsp; <span class="red">Force</span> (r '<span class="blue">:&&</span> '<span class="blue">Epsilon</span>) =
+      <span class="red">Force</span> r
+      <br>
+      &nbsp; <span class="red">Force</span> ('<span class="blue">Epsilon</span> '<span class="blue">:||</span> _) =
+      '<span class="blue">Epsilon</span>
+      <br>
+      &nbsp; <span class="red">Force</span> (_ '<span class="blue">:||</span> '<span class="blue">Epsilon</span>) =
+      '<span class="blue">Epsilon</span>
+      <br>
+      &nbsp; <span class="red">Force</span> ('<span class="blue">Empty</span> '<span class="blue">:||</span> s) =
+      <span class="red">Force</span> s
+      <br>
+      &nbsp; <span class="red">Force</span> (r '<span class="blue">:||</span> '<span class="blue">Empty</span>) =
+      <span class="red">Force</span> r
+      <br>
+    </div>
+
+    <p>
+      The second type family, which defines the derivative operation, is <span class="red">Delta</span>. It takes two
+      parameters: observed operation i, and the regular expression r. The output is the language such that each string
+      can be prepended with i to make a string from r.
+    </p>
+
+    <div class="code-line">
+      <span class="green">-- The derivative of a regular expression.</span>
+      <br>
+      <span class="purple">type</span> <span class="red">Delta</span> :: i -> <span class="red">Regex</span> i ->
+      <span class="red">Regex</span> i
+      <br>
+      <span class="purple">type</span> <span class="purple">family</span> <span class="red">Delta</span> i r
+      <span class="purple">where</span>
+      <br>
+      &nbsp; <span class="red">Delta</span> i '<span class="blue">Empty</span> = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Delta</span> i '<span class="blue">Epsilon</span> = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="red">Delta</span> i ('<span class="blue">Unit</span> i) = '<span class="blue">Epsilon</span>
+      <br>
+      &nbsp; <span class="green">-- Here we know that i and j are distinct operations.</span>
+      <br>
+      &nbsp; <span class="green">-- Otherwise, the previous case would have matched.</span>
+      <br>
+      &nbsp; <span class="red">Delta</span> i ('<span class="blue">Unit</span> j) = '<span class="blue">Empty</span>
+      <br>
+      &nbsp; <span class="green">-- Either i appears at the start of a string from r,</span>
+      <br>
+      &nbsp; <span class="green">-- or r contains the empty string and i appears in s.</span>
+      <br>
+      &nbsp; <span class="red">Delta</span> i (r '<span class="blue">:.</span> s) = (<span class="red">Delta</span> i r
+      '<span class="blue">:.</span> s) '<span class="blue">:||</span> (<span class="red">Nu</span> r
+      '<span class="blue">:.</span> <span class="red">Delta</span> i s)
+      <br>
+      &nbsp; <span class="red">Delta</span> (r '<span class="blue">:&&</span> s) = <span class="red">Delta</span> i r
+      '<span class="blue">:&&</span> <span class="red">Delta</span> i s
+      <br>
+      &nbsp; <span class="red">Delta</span> (r '<span class="blue">:||</span> s) = <span class="red">Delta</span> i r
+      '<span class="blue">:||</span> <span class="red">Delta</span> i s
+      <br>
+      &nbsp; <span class="red">Delta</span> ('<span class="blue">Star</span> r) = <span class="red">Delta</span> i r
+      '<span class="blue">:.</span> '<span class="blue">Star</span> r
+    </div>
 
     <h2>Putting It Altogether!</h2>
 
     <p>
       Now we have an appropriate way of passing type information to subtrees, we can define a free monad indexed not by
       a list of operations but by a regular language of operations! In the case of <span class="blue">Pure</span> we
-      need to know that the empty string is in the prescribed language. Luckily, the <span class="ref">Nu</span>
+      need to know that the empty string is in the prescribed language. Luckily, the <span class="red">Delta</span>
       type family checks exactly that! For the <span class="blue">Bind</span> constructor, we just need to take the
       derivative of the target language with respect to the observed operation to find a suitable language for the
       continuation.
     </p>
-
 
     <div class="code-line">
       <span class="purple">type</span> <span class="red">Free</span> :: <span class="red">Regex</span> i -> (i ->
@@ -279,14 +398,35 @@
       &nbsp; <span class="blue">Bind</span> :: f i a -> (a -> <span class="red">Free</span> f
       (<span class="red">Delta</span> i r) b) ->
       <span class="red">Free</span> f r b
+      <br>
+      <br>
+      <span class="purple">type</span> <span class="red">GetPut</span> = '<span class="blue">Star</span>
+      ('<span class="blue">G</span> '<span class="blue">:.</span> '<span class="blue">P</span>)
+      <br>
+      <br>
+      <span class="green">-- This function <em>will</em> type check!</span>
+      <br>
+      safe :: <span class="red">Free</span> (<span class="red">State</span> <span class="red">Int</span>)
+      <span class="red">GetPut</span> ()
+      <br>
+      safe = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
+      1)
+      <br>
+      <br>
+      <span class="green">-- This function <em>won't</em> type check!</span>
+      <br>
+      unsafe :: <span class="red">Free</span> (<span class="red">State</span> <span class="red">Int</span>)
+      <span class="red">GetPut</span> ()
+      <br>
+      unsafe = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Pure</span> ()
     </div>
 
     <p>
       This indexed monad is really quite neat because we can now statically verify that only one of the previous
-      programs meets our protocol. It is not a panacea though! We cannot directly compose monadic operations, for
-      example, defined in this manner. Intuitively, this is because the type-checker is expecting to verify a protocol
-      against a sequence of primitive operations, not another protocol. It does go to show, however, that organising
-      structures along algebraic lines can serve not just the programmer but the compiler too.
+      programs actually meets our protocol. It is not a panacea though! We cannot directly compose monadic operations,
+      for example, defined in this manner. Intuitively, this is because the type-checker is expecting to verify a
+      protocol against a sequence of primitive operations, not another protocol. It does go to show, however, that
+      organising structures along algebraic lines can serve not just the programmer but the compiler too.
     </p>
   </main>
 </body>
