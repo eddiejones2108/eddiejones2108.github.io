@@ -41,7 +41,7 @@
       strucutre in the depdently-typed programming language Agda. His first attempt involves so called <q>measures</q>,
       which are also an important aspect of the <a ref="https://ucsd-progsys.github.io/liquidhaskell/">
       Liquid Haskell</a> system. The following data declaration represents the list datatype enriched with a length
-      measure. Informally, a refinement type <span>{ x | &phi; }</span> is inhabitted an element e if
+      measure. Informally, a refinement type <span>{ x | &phi; }</span> is inhabitted by an element e if
       <span>&phi;[e/x]</span> holds.
     </p>
 
@@ -50,15 +50,15 @@
       <br>
       &nbsp; <span class="blue">Nil</span> :: { xs :: <span class="red">List</span> a | len xs = 0 }
       <br>
-      &nbsp; <span class="blue">Cons</span> :: a -> (xs :: <span class="red">List</span> a) -> { ys :: <span
-        class="red">List</span> a | len ys = len xs + 1 }
+      &nbsp; <span class="blue">Cons</span> :: a -> (xs :: <span class="red">List</span> a) -> { ys ::
+      <span class="red">List</span> a | len ys = len xs + 1 }
     </div>
 
     <p>
       Being able to specify the length of a list at the type-level gives us a stronger static guarantee. The head
       function, for example, can be refined to require lists that are <em>provably</em> non-empty. Measures provide a
       quick-fire way of refining algebraic datatypes that feels very natural - the length function is one of the first
-      encountered by functional programmers. They can be translated into a more algebraic specification with an
+      encountered by functional programmers. Measures can be translated into a more algebraic specification with an
       <em>index</em> (an additional type parameter, like <span>n :: <span class="red">Nat</span></span>) that specifies
       the value of a measure, e.g.:
     </p>
@@ -75,28 +75,30 @@
       (n + 1) a
     </div>
 
-    The practicality of these advanced type systems depends on the capacity of type checking and inference. Otherwise,
-    there is no advantage over manual proofs of correctness. Type checking ultimately boils down to equality on types:
-    we need to be sure that the types of two terms <em>align</em>, and thus it is safe for data to flow from one point
-    in our program to another. In fact, this is such a complex issue that the whole field of
-    <a href="https://homotopytypetheory.org">Homotopy Type Theory</a> has sprung up to ask questions about what
-    equality between types really means. In a dependently typed language this involves equality between arbitrary
-    program terms. For example, the types <span><span class="red">List</span> (x + 1) a</span> and
-    <span><span class="red">List</span> (1 + x)</span> a would ideally be considered equivalent, but in general, this is
-    an undecidable problem.
+    <p>
+      The practicality of these advanced type systems depends on the capacity for type checking and inference.
+      Otherwise, there is no advantage over manual proofs of correctness. Type checking ultimately boils down to
+      equality on types: we need to be sure that the types of two terms <em>align</em>, and thus it is safe for data to
+      flow from one point in our program to another. In fact, this is such a complex issue that the whole field of
+      <a href="https://homotopytypetheory.org">Homotopy Type Theory</a> has sprung up to ask questions about what
+      equality between types really means. In a dependently typed language this involves equality between arbitrary
+      program terms. For example, the types <span><span class="red">List</span> (x + 1) a</span> and
+      <span><span class="red">List</span> (1 + x)</span> a would ideally be considered equivalent, but in general, this
+      is an undecidable problem.
+    </p>
 
     <p>
-      While a direct translation of measures into indexed types works well for simple measures. McBride noticed that
-      some styles of indexing are better at placating type checkers. And, for complex measures, this becomes very
-      important. In the following quote 'green slime' refers to measure expressions such as x + 1.
+      While a direct translation into indexed types works well for simple measures. McBride noticed that some styles of
+      indexing are better at placating type checkers. And, for complex measures, this becomes very important. In the
+      following quote 'green slime' refers to measure expressions such as x + 1.
     <blockquote>
       We got the wrong answer because we asked the wrong question: <q>What should the type of a subtree tell us?</q>
       somewhat presupposes that information bubbles outward from subtrees to the nodes which contain them. In Milner's
       tradition, we are used to synthesizing the type of a thing. Moreover, the very syntax of data declarations treats
       the index delivered from each constructor as an output. It seems natural to treat datatype indices as measures of
-      the data. That is all very well for the length of a vector, but when the measurement is intricate, as when
-      computing a search tree's extrema, programming becomes vexed by the need for theorems about the measuring
-      functions. The presence of 'green slime' - defined functions in the return types of constructors is a danger sign.
+      the data. That is all very well for the length of a vector, but when the measurement is intricate [...]
+      programming becomes vexed by the need for theorems about the measuring functions. The presence of 'green slime' -
+      defined functions in the return types of constructors is a danger sign.
       <br>
       <br>
       We can take an alternative view of types, not as synthesized measurements of data, bubbled outward, but as checked
@@ -104,9 +106,9 @@
       <q>What should we tell the type of a subtree?</q>.
     </blockquote>
     In summary, the target type of a given expression should dictate what type its sub-expressions should receive. This
-    follows simply the fact that type annotations appear at the top-level in our program and rarely on the leaves of
-    syntax trees. In this post, we will construct an indexed type for dictating algebraic effect protocols with exactly
-    this property.
+    follows simply from the fact that type annotations appear at the top-level in our program and rarely on the leaves
+    of syntax trees. In this post, we will construct an indexed type for dictating algebraic effect protocols with
+    exactly this property.
     </p>
 
     <h2>
@@ -160,7 +162,7 @@
     <p>
       As we are concerned with the free monad a good place to start is with the free monoid, i.e. lists. Considering
       signatures that are themselves indexed by some type i, we can index monadic expressions as either the empty list
-      in the case of <span class="blue">Pure</span>, indicating that it has no effect, or by consing on the index of a
+      in the case of <span class="blue">Pure</span>, indicating that it has no effect, or by prepending the index of a
       primitive operation, <span>f i a</span>, to those of the continuation, <span><span class="red">Free</span> f is
       b</span>, for the <span class="blue">Bind</span> constructor. Here the ticked constructors (e.g. '[]) merely
       indicate that we have promoted them to the type-level.
@@ -180,7 +182,7 @@
 
     <p>
       We can then enrich our effect signature with an index that distinguishes between different sorts of primitive
-      operation. In this case, to specify whether it is a Get or Put. And specify that shape of an effectful operation
+      operation. In this case, to indicate whether it is a Get or Put. And specify that shape of an effectful operation
       at compile time!
     </p>
 
@@ -202,24 +204,24 @@
       &nbsp; <span class="blue">Put</span> :: s -> <span class="red">StateI</span> 'P s ()
       <br>
       <br>
-      addOne :: <span class="red">FreeI</span> (<span class="red">StateI</span> s) '['<span class="blue">G</span>,
+      modify :: <span class="red">FreeI</span> (<span class="red">StateI</span> s) '['<span class="blue">G</span>,
       '<span class="blue">P</span>] ()
       <br>
-      addOne = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
+      modify = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
       1)
     </div>
 
     <h2>Regular Effect Protocols</h2>
 
     <p>
-      The technique for statically prescribing a sequence of effects can be thought of as a protocol that defines the
+      This technique for statically prescribing a sequence of effects can be thought of as a protocol that defines the
       acceptable behaviour of an operation. It is not, however, particularly useful because we have to know the
       <em>exact</em> sequence. What would be a lot nicer is if we were able to describe a set of valid behaviours. A
       convenient way of specifying a set of lists (i.e. a language) is as a regular expression. For example, if we
-      require
-      that all <span class="blue">Get</span> operations are followed by a <span class="blue">Put</span> we could write
-      <span><span class="blue">Star</span> ('<span class="blue">G</span> '<span class="blue">:.</span>
-      '<span class="blue">P</span>)</span> using the following DSL:
+      require that all <span class="blue">Get</span> operations are followed by a <span class="blue">Put</span> we could
+      write
+      <span><span class="blue">Star</span> (<span class="blue">G</span> <span class="blue">:.</span>
+      <span class="blue">P</span>)</span> using the following DSL:
     </p>
 
     <div class="code-line">
@@ -243,13 +245,13 @@
     <p>
       A very satisfying property of regular expressions is that the language which remains after consuming a single
       character is another regular expression. Let's unpack this briefly with an example. If I start with the language
-      <span><span class="blue">Star</span> ('<span class="blue">G</span> '<span class="blue">:.</span>
-      '<span class="blue">P</span>)</span> and observe a '<span class="blue">G</span>, then the following sequence of
-      characters must satisfy <span><span class="blue">Star</span> ('<span class="blue">P</span>
-      '<span class="blue">:.</span> '<span class="blue">G</span>)</span>. What happens if I observe a
-      '<span class="blue">P</span>? Well the remaining language is '<span class="blue">Empty</span> as no string
-      following a '<span class="blue">P</span> will satisfy our protocol (not even the empty string
-      '<span class="blue">Epsilon</span>). This construction is called the Brzozowski derivative and will be key to
+      <span><span class="blue">Star</span> (<span class="blue">G</span> <span class="blue">:.</span>
+      <span class="blue">P</span>)</span> and observe a <span class="blue">G</span>, then the following sequence of
+      characters must satisfy <span><span class="blue">Star</span> (<span class="blue">P</span>
+      <span class="blue">:.</span> <span class="blue">G</span>)</span>. What happens if I observe a
+      <span class="blue">P</span>? Well the remaining language is <span class="blue">Empty</span> as no string
+      following a <span class="blue">P</span> will satisfy our protocol (not even the empty string
+      <span class="blue">Epsilon</span>). This construction is called the Brzozowski derivative and will be key to
       ensuring the type of the overall tree, that is our protocol, can effectively dictate the type of the subtrees,
       which will be the derivative with respect to the operations encountered so far.
     </p>
@@ -257,13 +259,12 @@
     <p>
       The Brzozowski derivative is defined by two type families (i.e. type-level functions). The first
       <span class="red">Nu</span>, read <q>nullable</q>, checks whether the language of a regular expression contains
-      the empty string. It returns '<span class="blue">Epsilon</span> if this is the case and
-      '<span class="blue">Empty</span> otherwise.
-      As we wish to minimise the amount of equational reasoning the compile has to do, and in fact, we won't specify any
-      of the equational laws of regular expressions, this function also explicitly shortcuts the result with the
-      <span class="red">Force</span> type family, rather than the more usual presentation where the output is a regular
-      expression that is merely equivalent to '<span class="blue">Epsilon</span> or '<span class="blue">Empty</span>
-      up-to some equations.
+      the empty string. It returns '<span class="blue">Epsilon</span>, if this is the case, and
+      '<span class="blue">Empty</span> otherwise. As we wish to minimise the amount of equational reasoning the compile
+      has to do, and in fact, we won't specify any of the equational laws of regular expressions, this function also
+      explicitly shortcuts the result via the <span class="red">Force</span> type family, oppose to the usual
+      presentation where the output is a regular expression that is merely equivalent to
+      '<span class="blue">Epsilon</span> or '<span class="blue">Empty</span> up-to some equations.
     </p>
 
     <div class="code-line">
@@ -333,7 +334,8 @@
 
     <p>
       The second type family, which defines the derivative operation, is <span class="red">Delta</span>. It takes two
-      parameters: observed operation i, and the regular expression r. The output is the language such that each string
+      parameters: an observed operation i, and the regular expression r. The output is the language such that each
+      string
       can be prepended with i to make a string from r.
     </p>
 
@@ -380,10 +382,10 @@
 
     <p>
       Now we have an appropriate way of passing type information to subtrees, we can define a free monad indexed not by
-      a list of operations but by a regular language of operations! In the case of <span class="blue">Pure</span> we
-      need to know that the empty string is in the prescribed language. Luckily, the <span class="red">Delta</span>
+      a list of operations but by a regular language of operations! In the case of <span class="blue">Pure</span>, we
+      need to know that the empty string is accepted by the protocol. Luckily, the <span class="red">Nu</span>
       type family checks exactly that! For the <span class="blue">Bind</span> constructor, we just need to take the
-      derivative of the target language with respect to the observed operation to find a suitable language for the
+      derivative of the target protocol with respect to the observed operation to find a suitable protocol for the
       continuation.
     </p>
 
@@ -424,11 +426,11 @@
     </div>
 
     <p>
-      This indexed monad is really quite neat because we can now statically verify that only one of the previous
-      programs actually meets our protocol. It is not a panacea though! We cannot directly compose monadic operations,
-      for example, defined in this manner. Intuitively, this is because the type-checker is expecting to verify a
-      protocol against a sequence of primitive operations, not another protocol. It does go to show, however, that
-      organising structures along algebraic lines can serve not just the programmer but the compiler too.
+      This indexed monad is really quite neat because we can now statically verify that only one of these two functions
+      actually meets our protocol. It is not a panacea though! We cannot, for example, directly compose monadic
+      operations defined in this manner. Intuitively, this is because the type-checker is expecting to verify a protocol
+      against a sequence of primitive operations, not another protocol. It does go to show, however, that organising
+      structures along algebraic lines can serve not just the programmer but the compiler too.
     </p>
   </main>
 </body>
