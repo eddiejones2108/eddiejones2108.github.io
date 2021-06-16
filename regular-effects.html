@@ -169,12 +169,12 @@
     </p>
 
     <div class="code-line">
-      <span class="purple">type</span> <span class="red">Free</span> :: [i] -> (i -> <span class="red">Type</span> ->
-      <span class="red">Type</span>) -> <span class="red">Type</span> -> <span class="red">Type</span>
+      <span class="purple">type</span> <span class="red">Free</span> :: (i -> <span class="red">Type</span> ->
+      <span class="red">Type</span>) -> [i] -> <span class="red">Type</span> -> <span class="red">Type</span>
       <br>
-      <span class="purple">data</span> <span class="red">Free</span> is f a <span class="purple">where</span>
+      <span class="purple">data</span> <span class="red">Free</span> f is a <span class="purple">where</span>
       <br>
-      &nbsp; <span class="blue">Pure</span> :: a -> <span class="red">Free</span> '[] f a
+      &nbsp; <span class="blue">Pure</span> :: a -> <span class="red">Free</span> f '[] a
       <br>
       &nbsp; <span class="blue">Bind</span> :: f i a -> (a -> <span class="red">Free</span> f is b) ->
       <span class="red">Free</span> f (i ': is) b
@@ -204,7 +204,7 @@
       &nbsp; <span class="blue">Put</span> :: s -> <span class="red">State</span> s 'P ()
       <br>
       <br>
-      modify :: <span class="red">FreeI</span> (<span class="red">State</span> s) '['<span class="blue">G</span>,
+      modify :: <span class="red">Free</span> (<span class="red">State</span> s) '['<span class="blue">G</span>,
       '<span class="blue">P</span>] ()
       <br>
       modify = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
@@ -390,14 +390,14 @@
     </p>
 
     <div class="code-line">
-      <span class="purple">type</span> <span class="red">Free</span> :: <span class="red">Regex</span> i -> (i ->
+      <span class="purple">type</span> <span class="red">Free</span> :: (i ->
       <span class="red">Type</span> ->
-      <span class="red">Type</span>) -> <span class="red">Type</span> -> <span class="red">Type</span>
+      <span class="red">Type</span>) -> <span class="red">Regex</span> i -> <span class="red">Type</span> -> <span class="red">Type</span>
       <br>
-      <span class="purple">data</span> <span class="red">Free</span> is f a <span class="purple">where</span>
+      <span class="purple">data</span> <span class="red">Free</span> f r a <span class="purple">where</span>
       <br>
       &nbsp; <span class="blue">Pure</span> :: <span class="red">Nu</span> r ~ '<span class="blue">Epsilon</span> => a
-      -> <span class="red">Free</span> r f a
+      -> <span class="red">Free</span> f r a
       <br>
       &nbsp; <span class="blue">Bind</span> :: f i a -> (a -> <span class="red">Free</span> f
       (<span class="red">Delta</span> i r) b) ->
