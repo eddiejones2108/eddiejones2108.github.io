@@ -202,33 +202,24 @@ legend {
   margin-bottom: 1em;
 }
 
-.timeline-item {
-	padding: 3em 2em 2em;
+.cv-item {
+	padding: 0em 2em 2em;
   margin-left: 1em;
 	position: relative;
 	border-left: thin solid var(--grey);
+  transition: border 0.3s;
 }
 
-.timeline-item::before {
-  content: attr(date-is);
-  position: absolute;
+.cv-item:hover {
+  border-left: thick solid var(--green);
+}
+
+.cv-item::before {
   left: 2em;
-  font-weight: bold;
   top: 1em;
+  content: attr(tag);
   display: block;
   font-weight: bold;
-}
-
-.timeline-item::after {
-  width: 10px;
-  height: 10px;
-  display: block;
-  top: 1em;
-  position: absolute;
-  left: -7px;
-  border-radius: 10px;
-  content: '';
-  border: 2px solid var(--grey);
 }
 
 /* articles */
@@ -325,7 +316,7 @@ span {
     margin: 0 auto;
   }
 
-  .timeline-item {
+  .cv-item {
     margin-left: 0em !important;
   }
 }

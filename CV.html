@@ -58,7 +58,7 @@
       </label>
     </fieldset>
 
-    <div topic="misc" class="timeline-item" date-is="About Me">
+    <div topic="misc" class="cv-item" tag="About Me">
       <!-- hidden=true -->
       <p>
         Apart from computer science, I really enjoy running, walking, and cycling - basically any activity that involves
@@ -72,7 +72,7 @@
       </ul>
     </div>
 
-    <div topic="pub" class="timeline-item" date-is="Jan 2021">
+    <div topic="pub" class="cv-item" tag="Jan 2021">
       <h2>Intensional Datatype Refinements &dash; POPL21</h2>
       <p>
         In <a href="https://arxiv.org/abs/2008.01452">this paper</a>, we present a higher-order program analysis that
@@ -91,7 +91,7 @@
       </p>
     </div>
 
-    <div topic="teach" class="timeline-item" date-is="October 2020 - June 2021">
+    <div topic="teach" class="cv-item" tag="October 2020 - June 2021">
       <h2>Programme-level Teaching Assistant</h2>
       <p>
         Perhaps the most rewarding teaching experience I have had to date is as a programme-level teaching assistant.
@@ -105,7 +105,7 @@
       </p>
     </div>
 
-    <div topic="teach" class="timeline-item" date-is="October 2019 - June 2020">
+    <div topic="teach" class="cv-item" tag="October 2019 - June 2020">
       <h2>Teaching Assistant </h2>
       <p>
         This year I took on a more senior role as lead teaching assistant for the Functional Programming unit in
@@ -119,11 +119,11 @@
       </p>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="July 2019">
+    <div topic="edu" class="cv-item" tag="July 2019">
       <h2>Top Computer Science and Mathematics Graduate</h2>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="July 2019">
+    <div topic="edu" class="cv-item" tag="July 2019">
       <h2>BSc (Hons) Mathematics and Computer Science &dash; University of Bristol</h2>
       <p>
         It is hard to summarise any qualification that spans several years in a few paragraphs, but especially so when
@@ -137,7 +137,7 @@
       </p>
     </div>
 
-    <div topic="edu, pub" class="timeline-item" date-is="June 2019">
+    <div topic="edu, pub" class="cv-item" tag="June 2019">
       <h2>The Dynamics of Dialects</h2>
       <p>
         My undergraduate dissertation focused on a different type of language - natural languages.
@@ -154,7 +154,7 @@
       </p>
     </div>
 
-    <div topic="teach" class="timeline-item" date-is="October 2018 - June 2019">
+    <div topic="teach" class="cv-item" tag="October 2018 - June 2019">
       <h2>Teaching Assistant </h2>
       <p>
         I have always enjoyed conveying my passions for subjects, and so I was delighted to get some experience as a
@@ -167,11 +167,11 @@
       </ul>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="October 2018">
+    <div topic="edu" class="cv-item" tag="October 2018">
       <h2>Top 10 Second Year Student in Computer Science</h2>
     </div>
 
-    <div topic="pub" class="timeline-item" date-is="August 2018">
+    <div topic="pub" class="cv-item" tag="August 2018">
       <h2>Applied Optimisation Research Internship</h2>
       <p>
         This project considered the problem of designing a car park layout for a given space that maximised the number
@@ -179,11 +179,11 @@
       </p>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="October 2017">
+    <div topic="edu" class="cv-item" tag="October 2017">
       <h2>Top 5 First Year Student in Computer Science</h2>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="August 2016">
+    <div topic="edu" class="cv-item" tag="August 2016">
       <h2>Peter Symonds College</h2>
 
       <p>
@@ -191,7 +191,7 @@
       </p>
     </div>
 
-    <div topic="edu" class="timeline-item" date-is="<=2016">
+    <div topic="edu" class="cv-item" tag="<=2016">
       <h2>Swanmore College of Technology</h2>
 
       <p>
@@ -202,19 +202,19 @@
 
   <script>
     $('input[type="radio"][name="filters"]').change(function () {
-      $('.timeline-item').hide();
+      $('.cv-item').hide();
       switch ($(this).attr("value")) {
         case "all":
-          $('.timeline-item').show();
-          // $('.timeline-item[topic *= "misc"]').hide();
+          $('.cv-item').show();
+          // $('.cv-item[topic *= "misc"]').hide();
           break;
-        case "pub": $('.timeline-item[topic *= "pub"]').show();
+        case "pub": $('.cv-item[topic *= "pub"]').show();
           break;
-        case "teach": $('.timeline-item[topic *= "teach"]').show();
+        case "teach": $('.cv-item[topic *= "teach"]').show();
           break;
-        case "edu": $('.timeline-item[topic *= "edu"]').show();
+        case "edu": $('.cv-item[topic *= "edu"]').show();
           break;
-        case "misc": $('.timeline-item[topic *= "misc"]').show();
+        case "misc": $('.cv-item[topic *= "misc"]').show();
           break;
       }
     });
