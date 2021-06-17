@@ -207,8 +207,8 @@
       modify :: <span class="red">Free</span> (<span class="red">State</span> s) '['<span class="blue">G</span>,
       '<span class="blue">P</span>] ()
       <br>
-      modify = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
-      1)
+      modify = <span class="blue">Get</span> `<span class="blue">Bind</span>` (\s -> <span class="blue">Put</span> (s +
+      1) `<span class="blue">Bind</span>` \() -> <span class="blue">Pure</span> ()))
     </div>
 
     <h2>Regular Effect Protocols</h2>
@@ -413,8 +413,8 @@
       safe :: <span class="red">Free</span> (<span class="red">State</span> <span class="red">Int</span>)
       <span class="red">GetPut</span> ()
       <br>
-      safe = <span class="blue">Get</span> `<span class="blue">Bind</span>` \s -> <span class="blue">Put</span> (s +
-      1)
+      safe = <span class="blue">Get</span> `<span class="blue">Bind</span>` (\s -> <span class="blue">Put</span> (s +
+      1) `<span class="blue">Bind</span>` \() -> <span class="blue">Pure</span> ())
       <br>
       <br>
       <span class="green">-- This function <em>won't</em> type check!</span>
